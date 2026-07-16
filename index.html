@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nhà thuốc Bích Phượng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="hangTieuDe">
+            <img src="linh-vat-bich-phuong-v2.svg" alt="Linh vật Bích Phượng" class="linhVat">
+            <h1>Nhà thuốc Bích Phượng</h1>
+
+            <button id="dauBaGach">☰</button>
+
+            <div id="menuBaGach" style="display:none;">
+                <div class="mucMenu mucDonHang" data-action="donHang">📋 Đơn hàng của tôi</div>
+                <div class="mucMenu mucThongTin" data-action="thongTin">👤 Thông tin cá nhân</div>
+                <div class="mucMenu mucYeuThich" id="mucSanPhamYeuThich" data-action="yeuThich">❤️ Lịch sử yêu thích
+                </div>
+                <div class="mucMenu mucTichDiem" id="mucXemTichDiem" data-action="tichDiem">🎁 Xem tích điểm</div>
+                <div id="khungTichDiem" style="display:none;">
+                    <p>Điểm hiện tại: <span id="soDiemTich">0</span> điểm</p>
+                    <p>1 điểm = 1.000đ</p>
+                </div>
+                <div class="mucMenu mucHoTro" data-action="hoTro">💬 Hỗ trợ / Liên hệ</div>
+            </div>
+
+            <div id="popupMenuChucNang" class="popupMenuChucNang" style="display:none;">
+                <div class="popupMenuNoiDung">
+                    <div class="popupMenuHeader">
+                        <h3 id="popupMenuTitle">Thông tin</h3>
+                        <button id="dongPopupMenuChucNang" type="button">✕</button>
+                    </div>
+                    <div id="popupMenuBody" class="popupMenuBody"></div>
+                </div>
+            </div>
+        </div>
+        <p>Chúng tôi cung cấp thuốc chính hãng, giá tốt.</p>
+        <p>Quang Trung/110 Tổ 9, KP 8, Trị An, Đồng Nai, Việt Nam</p>
+        <button id="nutDangNhap">Đăng nhập</button>
+
+        <div id="formDangNhap" style="display:none;">
+            <h3>Đăng nhập</h3>
+            <input type="text" id="oTaiKhoan" placeholder="Tên đăng nhập">
+            <div class="hangMatKhau">
+                <input type="password" id="oMatKhau" placeholder="Mật khẩu">
+                <button type="button" id="nutHienThi">👁️</button>
+            </div>
+            <button id="nutXacNhanDangNhap">Xác nhận</button>
+            <button id="nutDongForm">Đóng</button>
+            <p class="dangnhapbang">Đăng Nhập Bằng</p>
+
+            <div class="hangMangXaHoi">
+                <button class="nutMangXaHoi nutGoogle" data-mang="Google">
+                    <img src="https://www.google.com/favicon.ico" width="18" alt="Google">
+                    Google
+                </button>
+                <button class="nutMangXaHoi nutFacebook" data-mang="Facebook">Facebook</button>
+                <button class="nutMangXaHoi nutZalo" data-mang="Zalo">Zalo</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="noi-dung-chinh">
+
+        <div class="khuVucThongBao">
+            <div class="thongBaoStrip">
+                <div class="thongBaoItem active">
+                    <span class="thongBaoBadge">Ưu đãi</span>
+                    <strong>Giảm 20% cho đơn từ 300.000đ</strong>
+                    <span>Áp dụng đến hết 31/07</span>
+                </div>
+                <div class="thongBaoItem">
+                    <span class="thongBaoBadge">Sự kiện</span>
+                    <strong>Miễn phí giao hàng trong nội thành</strong>
+                    <span>Cho đơn hàng từ 200.000đ trở lên</span>
+                </div>
+                <div class="thongBaoItem">
+                    <span class="thongBaoBadge">Thông báo</span>
+                    <strong>Nhà thuốc cập nhật hàng mới: vitamin, thực phẩm chức năng</strong>
+                    <span>Đặt hàng nhanh chóng, giao tận nơi</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="thongBao" class="thong-bao" aria-live="polite"></div>
+
+        <section class="khuVucHoSo">
+            <div class="hoSoCard">
+                <div>
+                    <p class="tieuDeNho">Thông tin khách hàng</p>
+                    <h2>Chăm sóc sức khỏe toàn diện, thuận tiện và tin cậy</h2>
+                    <p>Quý khách có thể tra cứu thông tin cá nhân và theo dõi các ưu đãi hấp dẫn ngay tại đây.</p>
+                </div>
+                <div class="hoSoStats">
+                    <div class="statItem">⚡ Giao hàng nhanh trong ngày</div>
+                    <div class="statItem">🩺 Hỗ trợ tư vấn thuốc</div>
+                    <div class="statItem">🎁 Ưu đãi dành riêng cho thành viên</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="khuVucGioHang">
+            <button id="nutGioHangIcon">🛒 Giỏ hàng (<span id="soLuong">0</span>)</button>
+
+            <div id="panelGioHang" style="display:none;">
+                <h3>Giỏ hàng của bạn</h3>
+
+                <div id="chiTietGioHang"></div>
+
+                <p class="dongTongTien">Tổng tiền: <span id="tongTien">0</span>đ</p>
+                <p class="dongTongTien dongGiamGia" id="dongGiamGia">Giảm giá: 0đ</p>
+                <p class="dongTongTien dongDiem" id="dongDiem">Điểm tích lũy: 0 điểm</p>
+                <p class="dongTongTien dongCuoi" id="tongSauGiam">Còn lại: 0đ</p>
+
+                <div class="khuVucMaGiamGia">
+                    <label for="maGiamGia">Mã giảm giá:</label>
+                    <div class="hangMaGiamGia">
+                        <input type="text" id="maGiamGia" placeholder="Nhập mã như SALE10">
+                        <button type="button" id="nutApDungMaGiamGia">Áp dụng</button>
+                        <button type="button" id="nutXoaMaGiamGia">Xóa</button>
+                    </div>
+                    <p id="thongBaoMaGiamGia" class="thongBaoMaGiamGia">Mã có sẵn: SALE10, WELCOME20</p>
+                </div>
+
+                <div class="khuVucTichDiem">
+                    <label class="chonDiem">
+                        <input type="checkbox" id="dungDiemCheckbox">
+                        Dùng điểm tích lũy
+                    </label>
+                    <p id="thongTinDiemThanhToan" class="thongBaoMaGiamGia">Điểm hiện có: 0 điểm (1 điểm = 1.000đ)</p>
+                </div>
+
+                <label for="phuongThucThanhToan">Phương thức thanh toán:</label>
+                <select id="phuongThucThanhToan">
+                    <option value="tienMat">Tiền mặt</option>
+                    <option value="theNganHang">Thẻ ngân hàng</option>
+                    <option value="chuyenKhoan">Chuyển khoản</option>
+                    <option value="viDienTu">Ví điện tử</option>
+                </select>
+
+                <div class="khungThongTinGiaoHang" id="khungThongTinGiaoHang">
+                    <button type="button" id="nutThongTinGiaoHang">Thông tin giao hàng</button>
+
+                    <div id="formThongTinGiaoHang" style="display:none;">
+                        <label for="hoTenNguoiNhan">Họ tên người nhận:</label>
+                        <input type="text" id="hoTenNguoiNhan" placeholder="Nguyễn Văn A">
+
+                        <label for="soDienThoai">Số điện thoại:</label>
+                        <input type="tel" id="soDienThoai" placeholder="0123 456 789">
+
+                        <label for="diaChiGiaoHang">Địa chỉ giao hàng:</label>
+                        <textarea id="diaChiGiaoHang" rows="3"
+                            placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành"></textarea>
+
+                        <button type="button" id="nutLuuThongTin">Lưu thông tin</button>
+                    </div>
+                </div>
+
+                <div class="hangNutGioHang">
+                    <button id="nutXoaGio">Xóa giỏ hàng</button>
+                    <button id="nutThanhToan">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+
+        <input type="text" id="oTimKiem" placeholder="Tìm thuốc theo tên...">
+        <label for="oSapXepGia">Sắp xếp theo giá: </label>
+        <select id="oSapXepGia">
+            <option value="macDinh">Mặc định</option>
+            <option value="tang">Giá thấp đến cao</option>
+            <option value="giam">Giá cao đến thấp</option>
+        </select>
+
+        <div class="menuChinh">
+            <button class="nutMoMenu nutTatCa" id="nutTatCaSanPham">Tất cả</button>
+            <button class="nutMoMenu" data-nhom="Thuốc">Thuốc ▾</button>
+            <button class="nutMoMenu" data-nhom="Vitamin">Vitamin ▾</button>
+            <button class="nutMoMenu" data-nhom="Thực phẩm chức năng">Thực phẩm chức năng ▾</button>
+            <button class="nutMoMenu" data-nhom="Dược mỹ phẩm">Dược mỹ phẩm ▾</button>
+            <button class="nutMoMenu" data-nhom="Dụng cụ y tế">Dụng cụ y tế ▾</button>
+            <button class="nutMoMenu" data-nhom="Dung Dịch Vệ Sinh">Dung Dịch Vệ Sinh ▾</button>
+            <button class="nutMoMenu" data-nhom="Chăm Sóc Răng Miệng">Chăm Sóc Răng Miệng ▾</button>
+        </div>
+
+        <div id="megaMenu" style="display:none;">
+            <div class="cotPhai" id="cotPhai"></div>
+        </div>
+
+        <div id="popupYeuThich" class="popupYeuThich" style="display:none;">
+            <div class="popupYeuThichNoiDung">
+                <div class="popupYeuThichHeader">
+                    <h3>Danh sách yêu thích</h3>
+                    <button id="dongPopupYeuThich" type="button">✕</button>
+                </div>
+                <div id="noiDungPopupYeuThich" class="popupYeuThichBody"></div>
+            </div>
+        </div>
+
+        <ol id="dsSanPham"></ol>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

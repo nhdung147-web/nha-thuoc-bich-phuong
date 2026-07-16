@@ -1,0 +1,1004 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f4fbff 0%, #dff2ff 45%, #fff8eb 100%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    color: #77c2f8;
+    font-size: 16px;
+}
+
+.hangTieuDe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    position: relative;
+    padding-right: 60px;
+}
+
+.linhVat {
+    width: 100px;
+    filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.18));
+}
+
+.header {
+    background: linear-gradient(135deg, #0b4a6f 0%, #2f7fc3 50%, #4bc2ff 100%);
+    color: white;
+    padding: 24px 20px 40px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.header h1 {
+    color: white;
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.95);
+    margin: 6px 0 0;
+    font-size: 16px;
+}
+
+.noi-dung-chinh {
+    background: rgba(255, 255, 255, 0.96);
+    max-width: 1120px;
+    margin: -20px auto 24px;
+    padding: 24px;
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(17, 57, 91, 0.15);
+    position: relative;
+}
+
+p {
+    font-size: 16px;
+}
+
+#oTimKiem {
+    padding: 12px 14px;
+    width: 100%;
+    max-width: 340px;
+    border: 1px solid #dceaf7;
+    border-radius: 999px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+#oTimKiem:focus {
+    border-color: #2f7fc3;
+    box-shadow: 0 0 0 3px rgba(47, 127, 195, 0.15);
+}
+
+#MenuDanhMuc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+#formDangNhap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    z-index: 100;
+    width: min(92vw, 360px);
+}
+
+#formDangNhap input {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    border: 1px solid #dceaf7;
+    border-radius: 10px;
+}
+
+.hangMatKhau {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hangMatKhau input {
+    flex: 1;
+}
+
+.hoacDangNhapBang {
+    text-align: center;
+    color: #7b92a8;
+    font-size: 14px;
+    margin: 15px 0 10px 0;
+}
+
+.hangMangXaHoi {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nutMangXaHoi {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background-color: white;
+    color: #234a63;
+    border: 1px solid #dceaf7;
+}
+
+.nutGoogle:hover {
+    background-color: #fce8e6;
+}
+
+.nutFacebook {
+    background: linear-gradient(135deg, #1877f2, #1c8cfa);
+    color: white;
+}
+
+.nutFacebook:hover {
+    background: linear-gradient(135deg, #145dbf, #1a78e9);
+}
+
+.nutZalo {
+    background: linear-gradient(135deg, #0068ff, #2c7bff);
+    color: white;
+}
+
+.nutZalo:hover {
+    background: linear-gradient(135deg, #0052cc, #256ce6);
+}
+
+.danhmuc {
+    background-color: white;
+    color: #0066cc;
+    border: 1px solid #94c5f5;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.danhmuc:hover {
+    background-color: #0066cc;
+    color: white;
+}
+
+ol {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    margin-top: 18px;
+}
+
+li {
+    background: #ffffff;
+    border: 1px solid #e4eff8;
+    border-radius: 18px;
+    padding: 18px;
+    margin: 8px 0;
+    list-style: none;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 10px 24px rgba(17, 57, 91, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(17, 57, 91, 0.14);
+}
+
+li img {
+    width: 100%;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 10px;
+}
+
+.tenSanPham {
+    font-weight: 700;
+    cursor: pointer;
+    color: #173a56;
+}
+
+.chitiet {
+    background: linear-gradient(135deg, #f4fbff, #eaf7ff);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: left;
+    color: #47627a;
+}
+
+button {
+    background: linear-gradient(135deg, #0f6cbd, #2d95d6);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 9px 16px;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(15, 108, 189, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(15, 108, 189, 0.24);
+}
+
+button:disabled {
+    background: #9eaab3;
+    color: white;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+#nutThanhToan {
+    margin-left: auto;
+    display: block;
+}
+
+.hangthanhtoan {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+#nutdangnhap {
+    margin-left: auto;
+    display: block;
+}
+
+.khuVucGioHang {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+#nutGioHangIcon {
+    font-size: 15px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: #3b2f00;
+}
+
+#panelGioHang {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: white;
+    border: 1px solid #dfeaf5;
+    border-radius: 18px;
+    box-shadow: 0 22px 44px rgba(17, 57, 91, 0.16);
+    padding: 20px;
+    width: 340px;
+    z-index: 80;
+}
+
+#panelGioHang h3 {
+    margin-top: 0;
+    color: #0f6cbd;
+}
+
+#chiTietGioHang {
+    font-size: 14px;
+    margin-bottom: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.dongTongTien {
+    font-weight: bold;
+    font-size: 16px;
+    border-top: 1px solid #e6eef6;
+    padding-top: 10px;
+    color: #144866;
+}
+
+#panelGioHang select {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 10px;
+    border: 1px solid #dceaf7;
+    margin: 8px 0;
+}
+
+.khuVucMaGiamGia {
+    margin: 10px 0 12px;
+    padding: 10px;
+    border: 1px dashed #bfe0ff;
+    border-radius: 12px;
+    background: #f7fbff;
+}
+
+.khuVucTichDiem {
+    margin: 8px 0 12px;
+    padding: 10px;
+    border: 1px dashed #e9d5ff;
+    border-radius: 12px;
+    background: #fcf7ff;
+}
+
+.chonDiem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #7c3aed;
+}
+
+.chonDiem input {
+    width: auto;
+    margin: 0;
+}
+
+.hangMaGiamGia {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+#maGiamGia {
+    flex: 1;
+    min-width: 140px;
+    margin: 0;
+}
+
+#nutApDungMaGiamGia,
+#nutXoaMaGiamGia {
+    padding: 8px 10px;
+    margin: 0;
+}
+
+.thongBaoMaGiamGia {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: #4c7a9a;
+}
+
+.dongGiamGia {
+    font-size: 14px;
+    color: #b45309;
+}
+
+.dongCuoi {
+    color: #0f6cbd;
+    font-size: 15px;
+}
+
+#panelGioHang input,
+#panelGioHang textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 10px;
+    border: 1px solid #dceaf7;
+    margin: 4px 0 8px 0;
+    font-size: 14px;
+}
+
+.khungThongTinGiaoHang {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#nutThongTinGiaoHang {
+    width: 100%;
+    margin: 0 0 8px 0;
+    background: linear-gradient(135deg, #0f6cbd, #2d95d6);
+}
+
+#formThongTinGiaoHang {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    border: 1px solid #dce8f5;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f7fbff, #eef7ff);
+}
+
+#formThongTinGiaoHang input,
+#formThongTinGiaoHang textarea {
+    margin: 0 0 6px 0;
+}
+
+.hangNutGioHang {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.hangNutGioHang button {
+    flex: 1;
+}
+
+.menuChinh {
+    display: flex;
+    gap: 10px;
+    margin: 12px 0 14px;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.nutMoMenu {
+    background: #edf6ff;
+    color: #0f6cbd;
+    border: 1px solid #bfe0ff;
+    box-shadow: none;
+}
+
+.nutMoMenu:hover {
+    background: #dceeff;
+    color: #08508f;
+}
+
+#megaMenu {
+    position: absolute;
+    background: white;
+    border: 1px solid #dfeaf5;
+    box-shadow: 0 16px 34px rgba(17, 57, 91, 0.16);
+    display: flex;
+    width: 520px;
+    z-index: 50;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.cotPhai {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
+}
+
+.mucCotPhai {
+    padding: 7px 12px;
+    background: linear-gradient(135deg, #f4fbff, #e4f2ff);
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0f6cbd;
+}
+
+.mucCotPhai:hover {
+    background: linear-gradient(135deg, #0f6cbd, #2d95d6);
+    color: white;
+}
+
+.nutTatCa {
+    background: linear-gradient(135deg, #444, #666);
+    color: white;
+}
+
+.nutTatCa:hover {
+    background: linear-gradient(135deg, #222, #444);
+}
+
+.khuVucThongBao {
+    margin: 0 0 18px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f7fbff, #eef7ff);
+    border: 1px solid #dceaf7;
+    box-shadow: 0 10px 24px rgba(17, 57, 91, 0.08);
+}
+
+.thongBaoStrip {
+    display: grid;
+    gap: 10px;
+}
+
+.thongBaoItem {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: white;
+    color: #33536d;
+    border: 1px solid #e3f0fb;
+}
+
+.thongBaoItem.active {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thongBaoBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #0f6cbd, #2d95d6);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+#dauBaGach {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #0f6cbd, #2d95d6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(15, 108, 189, 0.2);
+    padding: 8px 12px;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#dauBaGach:hover {
+    background: linear-gradient(135deg, #0a5394, #2187c4);
+    transform: translateY(-1px);
+}
+
+.thong-bao {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.thong-bao .toast {
+    background: #0f6cbd;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    min-width: 220px;
+    animation: slideIn 0.25s ease;
+}
+
+.thong-bao .toast.success {
+    background: #16a34a;
+}
+
+.thong-bao .toast.error {
+    background: #dc2626;
+}
+
+.khuVucYeuThich {
+    margin-top: 24px;
+    padding: 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff7f2, #fff1e6);
+    border: 1px solid #ffd8b8;
+}
+
+.khuVucYeuThich h3,
+.khuVucLichSuDonHang h3 {
+    margin-top: 0;
+    color: #0f6cbd;
+}
+
+.khuVucYeuThich .yeuThichItem,
+.khuVucLichSuDonHang .donHangItem {
+    padding: 10px 0;
+    border-bottom: 1px solid #e4eff8;
+    color: #33536d;
+}
+
+.khuVucYeuThich .yeuThichItem:last-child,
+.khuVucLichSuDonHang .donHangItem:last-child {
+    border-bottom: none;
+}
+
+.khuVucHoSo {
+    margin: 16px 0 20px;
+}
+
+.hoSoCard {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f8fcff, #eef8ff);
+    border: 1px solid #dceaf7;
+    box-shadow: 0 10px 24px rgba(17, 57, 91, 0.06);
+}
+
+.tieuDeNho {
+    margin: 0 0 6px;
+    color: #0f6cbd;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.hoSoCard h2 {
+    margin: 0 0 8px;
+    color: #173a56;
+    font-size: 22px;
+}
+
+.hoSoCard p {
+    margin: 0;
+    color: #547087;
+}
+
+.hoSoStats {
+    display: grid;
+    gap: 8px;
+    min-width: 240px;
+}
+
+.statItem {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: white;
+    color: #0f6cbd;
+    border: 1px solid #e3f0fb;
+    font-weight: 600;
+}
+
+.popupYeuThich {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 26, 42, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 300;
+}
+
+.popupYeuThichNoiDung {
+    width: min(92vw, 560px);
+    max-height: 80vh;
+    overflow: hidden;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.popupYeuThichHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid #eaf2f8;
+}
+
+.popupYeuThichHeader h3 {
+    margin: 0;
+    color: #0f6cbd;
+}
+
+.popupYeuThichHeader button {
+    margin: 0;
+    padding: 6px 10px;
+    background: #f1f7ff;
+    color: #0f6cbd;
+    box-shadow: none;
+}
+
+.popupYeuThichBody {
+    padding: 16px 18px 18px;
+    max-height: calc(80vh - 70px);
+    overflow-y: auto;
+}
+
+.itemYeuThichModal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eef5fb;
+}
+
+.itemYeuThichModal:last-child {
+    border-bottom: none;
+}
+
+.itemYeuThichModal strong {
+    display: block;
+    color: #173a56;
+}
+
+.itemYeuThichModal span {
+    color: #0f6cbd;
+    font-size: 14px;
+}
+
+.hangNutYeuThichPopup {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.hangNutYeuThichPopup button {
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+.nutBoYeuThichPopup {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.khuVucLichSuDonHang h3 {
+    margin-top: 0;
+    color: #0f6cbd;
+}
+
+.khuVucLichSuDonHang .donHangItem {
+    padding: 10px 0;
+    border-bottom: 1px solid #e4eff8;
+    color: #33536d;
+}
+
+.khuVucLichSuDonHang .donHangItem:last-child {
+    border-bottom: none;
+}
+
+.nutYeuThich {
+    background: #fff;
+    color: #cfd8dc;
+    border: 1px solid #e0e0e0;
+    box-shadow: none;
+    padding: 4px 8px;
+    margin: 6px 0 0 0;
+    font-size: 20px;
+    border-radius: 999px;
+    line-height: 1;
+}
+
+.nutYeuThich:hover {
+    transform: scale(1.1);
+    box-shadow: none;
+}
+
+.nutYeuThich.active {
+    background: #fff5f5;
+    color: #ff1744;
+    border-color: #ffb3c1;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#dauBaGach:focus-visible {
+    outline: 2px solid #0f6cbd;
+    outline-offset: 2px;
+}
+
+#menuBaGach {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 260px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14);
+    display: none;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.mucMenu {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #eff5fb;
+    color: #33536d;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.mucMenu:last-child {
+    border-bottom: none;
+}
+
+.mucMenu:hover {
+    background: linear-gradient(135deg, #f7fbff, #eef7ff);
+    color: #0f6cbd;
+    transform: translateX(2px);
+}
+
+.mucDonHang:hover {
+    background: linear-gradient(135deg, #eef9ff, #e0f2fe);
+}
+
+.mucThongTin:hover {
+    background: linear-gradient(135deg, #fff8ee, #fef3c7);
+}
+
+.mucYeuThich:hover {
+    background: linear-gradient(135deg, #fff5f5, #ffe4e6);
+}
+
+.mucTichDiem:hover {
+    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+}
+
+.mucHoTro:hover {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+
+.popupMenuChucNang {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 24, 39, 0.58);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 400;
+}
+
+.popupMenuNoiDung {
+    width: min(92vw, 480px);
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.popupMenuHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf4fa;
+    background: linear-gradient(135deg, #f7fbff, #eef7ff);
+}
+
+.popupMenuHeader h3 {
+    margin: 0;
+    color: #0f6cbd;
+}
+
+.popupMenuHeader button {
+    margin: 0;
+    padding: 6px 10px;
+    background: #fff;
+    color: #0f6cbd;
+    box-shadow: none;
+}
+
+.popupMenuBody {
+    padding: 16px;
+    color: #33536d;
+}
+
+.popupMenuBody .bangThongTin {
+    display: grid;
+    gap: 8px;
+}
+
+.popupMenuBody .hangThongTin {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #f8fbff;
+    border: 1px solid #e8f2fb;
+}
+
+.popupMenuBody .nutPopupMenu {
+    margin: 10px 0 0 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #0f6cbd, #2d95d6);
+}
+
+#khungTichDiem {
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #13110c, #fff3d6);
+    color: #8a4b00;
+    border-bottom: 1px solid #f2e2c0;
+}
+
+#khungTichDiem p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.dongDiem {
+    font-size: 14px;
+    color: #7c3aed;
+}
+
+@media (max-width: 700px) {
+    body {
+        font-size: 15px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .noi-dung-chinh {
+        padding: 18px;
+        margin-top: -10px;
+    }
+
+    ol {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    li {
+        width: 100%;
+    }
+
+    #megaMenu {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    #panelGioHang {
+        width: 92vw;
+    }
+
+    .thongBaoItem {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hoSoCard {
+        flex-direction: column;
+    }
+
+    .hoSoStats {
+        min-width: 0;
+    }
+}

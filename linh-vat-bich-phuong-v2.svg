@@ -1,0 +1,68 @@
+<svg width="320" height="380" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Linh vật nhà thuốc Bích Phượng</title>
+<desc>Viên thuốc hoạt hình dễ thương ôm chữ thập y tế, chữ Bích Phượng và Sức khỏe của mọi nhà</desc>
+
+<rect x="0" y="0" width="320" height="380" rx="24" fill="#FFFFFF"/>
+
+<ellipse cx="160" cy="215" rx="75" ry="12" fill="#000000" opacity="0.06"/>
+
+<g>
+  <path d="M 80 130 
+           Q 80 70 140 70
+           L 180 70
+           Q 240 70 240 130
+           L 240 195
+           Q 240 255 180 255
+           L 140 255
+           Q 80 255 80 195
+           Z" 
+        fill="#4FC3E8" stroke="#2A9BC1" stroke-width="3"/>
+
+  <path d="M 80 162 L 240 162" stroke="#2A9BC1" stroke-width="3"/>
+
+  <path d="M 80 130 
+           Q 80 70 140 70
+           L 160 70
+           L 160 162
+           L 80 162
+           Z" 
+        fill="#FFFFFF" stroke="#2A9BC1" stroke-width="3"/>
+
+  <path d="M 160 162 
+           L 240 162
+           L 240 195
+           Q 240 255 180 255
+           L 160 255
+           Z" 
+        fill="#FFFFFF" stroke="#2A9BC1" stroke-width="3"/>
+
+  <g>
+    <rect x="135" y="95" width="50" height="17" rx="4" fill="#E85D75"/>
+    <rect x="152" y="78" width="17" height="50" rx="4" fill="#E85D75"/>
+  </g>
+
+  <circle cx="123" cy="195" r="8" fill="#2A2A2A"/>
+  <circle cx="197" cy="195" r="8" fill="#2A2A2A"/>
+  <circle cx="126" cy="192" r="2.5" fill="#FFFFFF"/>
+  <circle cx="200" cy="192" r="2.5" fill="#FFFFFF"/>
+
+  <path d="M 128 222 Q 160 244 192 222" 
+        fill="none" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/>
+
+  <circle cx="105" cy="208" r="10" fill="#FF9EAD" opacity="0.6"/>
+  <circle cx="215" cy="208" r="10" fill="#FF9EAD" opacity="0.6"/>
+
+  <ellipse cx="52" cy="180" rx="19" ry="12" fill="#4FC3E8" stroke="#2A9BC1" stroke-width="3" transform="rotate(-20 52 180)"/>
+  <ellipse cx="268" cy="180" rx="19" ry="12" fill="#4FC3E8" stroke="#2A9BC1" stroke-width="3" transform="rotate(20 268 180)"/>
+
+  <circle cx="165" cy="55" r="5" fill="#FFD166"/>
+  <circle cx="182" cy="46" r="3.5" fill="#FFD166"/>
+  <circle cx="143" cy="50" r="3.5" fill="#FFD166"/>
+</g>
+
+<g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+  <text x="160" y="298" font-size="34" font-weight="800" fill="#0D6EA6">Bích Phượng</text>
+  <rect x="60" y="315" width="200" height="34" rx="17" fill="#0D6EA6"/>
+  <text x="160" y="338" font-size="18" font-weight="700" fill="#FFFFFF">Sức khỏe của mọi nhà</text>
+</g>
+</svg>

@@ -1,0 +1,1067 @@
+const danhSach = [
+    { ten: "Thuốc cảm cúm", gia: 25000, anh: "https://vnras.com/drug/wp-content/uploads/2025/08/Panadol-Cam-Cum-2.jpg", tonkho: 10, chitiet: "Thuốc cảm cúm Panadol giúp giảm đau, hạ sốt, giảm các triệu chứng cảm cúm.", danhMuc: "thuốc cảm cúm", nhomLon: "Thuốc" },
+    { ten: "Thuốc huyết áp", gia: 45000, anh: "https://www.vinmec.com/static/uploads/medium_20200220_013447_856538_thuoc_Coversyl_max_1800x1800_jpg_ca76a051fe.jpg", tonkho: 0, chitiet: "Thuốc huyết áp Coversyl max giúp kiểm soát huyết áp.", danhMuc: "thuốc huyết áp", nhomLon: "Thuốc" },
+    { ten: "Thuốc tiểu đường", gia: 60000, anh: "https://cdn.diag.vn/2024/11/9de5c0aa-diamicron-mr-30mg-1.jpg", tonkho: 8, chitiet: "Thuốc tiểu đường Diamicron MR giúp kiểm soát đường huyết.", danhMuc: "thuốc tiểu đường", nhomLon: "Thuốc" },
+    { ten: "thuốc tiêu hóa", gia: 100000, anh: "https://www.vinmec.com/static/uploads/medium_20200220_013447_856538_thuoc_Coversyl_max_1800x1800_jpg_ca76a051fe.jpg", tonkho: 5, chitiet: "Thuốc tiêu hóa Coversyl max giúp cải thiện chức năng tiêu hóa.", danhMuc: "thuốc tiêu hóa", nhomLon: "Thuốc" },
+
+    { ten: "vitamin A", gia: 50000, anh: "https://myphamxachtayduc.vn/wp-content/uploads/2016/11/Doppelherz-aktiv-Vitamin-A-2500-I.E.jpg", tonkho: 15, chitiet: "Vitamin A Doppelherz aktiv hỗ trợ sức khỏe mắt và da.", danhMuc: "vitamin", nhomLon: "Vitamin" },
+    { ten: "vitamin C", gia: 50000, anh: "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/hrm/hrm50020/y/24.jpg", tonkho: 12, chitiet: "Vitamin C Iherb giúp tăng cường hệ miễn dịch.", danhMuc: "vitamin", nhomLon: "Vitamin" },
+
+    { ten: "Sữa non tăng đề kháng", gia: 350000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOuqG3sI0tgobeTp_zJnejHdZL7dK8QS--pQWqDxJ0aP8iYNZcg5fdhfzL&s=10", tonkho: 20, chitiet: "Sữa non Alma Colostrum hỗ trợ tăng cường sức đề kháng cho cơ thể.", danhMuc: "thực phẩm chức năng", nhomLon: "Thực phẩm chức năng" },
+    { ten: "Viên uống Omega 3", gia: 280000, anh: "https://orihiro.vn/wp-content/uploads/2020/04/20.png", tonkho: 25, chitiet: "Omega 3 hỗ trợ tim mạch, tốt cho trí não và thị lực.", danhMuc: "thực phẩm chức năng", nhomLon: "Thực phẩm chức năng" },
+    { ten: "Viên uống Collagen", gia: 420000, anh: "https://heluva.vn/wp-content/uploads/2020/08/product-3.jpg", tonkho: 10, chitiet: "Collagen hỗ trợ làm đẹp da, chống lão hóa.", danhMuc: "thực phẩm chức năng", nhomLon: "Thực phẩm chức năng" },
+
+    { ten: "Kem chống nắng Anessa", gia: 550000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5VSdoDVFZp2dQlefK0iJSGRtc0Y8NQ20md-HmMyiPcg&s=10", tonkho: 12, chitiet: "Kem chống nắng Anessa bảo vệ da khỏi tia UV, chống nước.", danhMuc: "kem chống nắng", nhomLon: "Dược mỹ phẩm" },
+    { ten: "Kem dưỡng ẩm Cetaphil", gia: 320000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbFF9xP1cK64T9YJu4VtHdiBrPmPuV5_UkVtjWp--ZEg&s=10", tonkho: 18, chitiet: "Kem dưỡng ẩm Cetaphil dịu nhẹ, phù hợp da nhạy cảm.", danhMuc: "kem dưỡng da", nhomLon: "Dược mỹ phẩm" },
+    { ten: "Serum Vitamin C", gia: 480000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtxPk00amo5sbTSM4_za_c-pK1tJWE7Q0hbtuP0blZTw&s=10", tonkho: 9, chitiet: "Serum Vitamin C giúp sáng da, mờ thâm nám.", danhMuc: "kem dưỡng da", nhomLon: "Dược mỹ phẩm" },
+
+    { ten: "Nhiệt kế điện tử", gia: 120000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwH-9P8LDkBU1-82y9f52ikhrXTmfEPNolAnSEEnOpZMesvRIe3VR5hd3p&s=10", tonkho: 30, chitiet: "Nhiệt kế điện tử đo nhanh, chính xác, an toàn cho cả gia đình.", danhMuc: "dụng cụ y tế", nhomLon: "Dụng cụ y tế" },
+    { ten: "Máy đo huyết áp", gia: 890000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqE7iA_H7Hy31kHkT495BuFry5hnYjXop5YfKO2IhRz4dCmFVerP_Jj0c&s=10", tonkho: 7, chitiet: "Máy đo huyết áp bắp tay tự động, hiển thị kết quả rõ ràng.", danhMuc: "dụng cụ y tế", nhomLon: "Dụng cụ y tế" },
+    { ten: "Khẩu trang y tế", gia: 45000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__TAgJKXKp5Gf4i2a_hLnChSQaNlxp5K2enXp7i6a_JQNLUO1rwiCBVk&s=10", tonkho: 50, chitiet: "Khẩu trang y tế 4 lớp, kháng khuẩn, hộp 50 cái.", danhMuc: "dụng cụ y tế", nhomLon: "Dụng cụ y tế" }
+];
+
+const oDanhSach = document.querySelector("#dsSanPham");
+const popupYeuThich = document.querySelector("#popupYeuThich");
+const noiDungPopupYeuThich = document.querySelector("#noiDungPopupYeuThich");
+const dongPopupYeuThichButton = document.querySelector("#dongPopupYeuThich");
+const thongBao = document.querySelector("#thongBao");
+const thongBaoStripItems = Array.from(document.querySelectorAll(".thongBaoItem"));
+let viTriThongBaoHienTai = 0;
+
+function hienThiThongBao(message, type = "info") {
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    thongBao.appendChild(toast);
+
+    setTimeout(function () {
+        toast.remove();
+    }, 2200);
+}
+
+function capNhatYeuThich() {
+    return;
+}
+
+function renderPopupYeuThich() {
+    const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+
+    if (!noiDungPopupYeuThich) {
+        return;
+    }
+
+    noiDungPopupYeuThich.innerHTML = "";
+
+    if (yeuThich.length === 0) {
+        noiDungPopupYeuThich.innerHTML = "<p>Chưa có sản phẩm yêu thích nào.</p>";
+        return;
+    }
+
+    yeuThich.forEach(function (tenSp) {
+        const sp = danhSach.find(function (item) {
+            return item.ten === tenSp;
+        });
+
+        if (!sp) {
+            return;
+        }
+
+        noiDungPopupYeuThich.innerHTML += `
+            <div class="itemYeuThichModal">
+                <div>
+                    <strong>${sp.ten}</strong>
+                    <span>${sp.gia.toLocaleString()}đ</span>
+                </div>
+                <div class="hangNutYeuThichPopup">
+                    <button type="button" class="nutThemGioPopup" data-ten="${sp.ten}" data-gia="${sp.gia}" data-tonkho="${sp.tonkho}">Thêm vào giỏ</button>
+                    <button type="button" class="nutBoYeuThichPopup" data-ten="${sp.ten}">Bỏ</button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function moPopupYeuThich() {
+    if (popupYeuThich) {
+        renderPopupYeuThich();
+        popupYeuThich.style.display = "flex";
+    }
+}
+
+function dongPopupYeuThich() {
+    if (popupYeuThich) {
+        popupYeuThich.style.display = "none";
+    }
+}
+
+function themVaoGioHangTuSanPham(tenSanPham, giaSanPham, tonKhoGoc) {
+    if (!gioHang[tenSanPham]) {
+        gioHang[tenSanPham] = { soLuong: 0, gia: giaSanPham };
+    }
+
+    if (gioHang[tenSanPham].soLuong >= tonKhoGoc) {
+        hienThiThongBao(`Kho chỉ còn ${tonKhoGoc} sản phẩm "${tenSanPham}".`, "error");
+        return;
+    }
+
+    gioHang[tenSanPham].soLuong = gioHang[tenSanPham].soLuong + 1;
+    hienThiThongBao(`Đã thêm ${tenSanPham} vào giỏ hàng.`, "success");
+    capNhatGioHang();
+}
+
+function vedanhsach(mang) {
+    oDanhSach.innerHTML = "";
+    const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+
+    mang.forEach(function (sp) {
+        const daYeuThich = yeuThich.includes(sp.ten);
+        oDanhSach.innerHTML += `
+            <li>
+                <img src="${sp.anh}" alt="${sp.ten}" width="100" height="100">
+                <span class="tenSanPham">${sp.ten}</span> - ${sp.gia.toLocaleString()}đ
+                <br>
+                <p class="chitiet" style="display:none;">${sp.chitiet}</p>
+                <button class="nutYeuThich ${daYeuThich ? 'active' : ''}" data-ten="${sp.ten}">❤</button>
+                <button class="nutThemGio" data-ten="${sp.ten}" data-gia="${sp.gia}" data-tonkho="${sp.tonkho}" ${sp.tonkho === 0 ? 'disabled' : ''}>${sp.tonkho === 0 ? 'Hết hàng' : 'Thêm'}</button>
+                <button class="nutbogio" data-ten="${sp.ten}" data-gia="${sp.gia}">hủy</button>
+            </li>
+        `;
+    });
+}
+
+vedanhsach(danhSach);
+
+const tatCaSanPham = document.querySelectorAll("li");
+
+tatCaSanPham.forEach(function (motSanPham) {
+    motSanPham.addEventListener("click", function () {
+        motSanPham.style.color = "red";
+    });
+    motSanPham.addEventListener("mouseover", function () {
+        motSanPham.style.color = "orange";
+    });
+    motSanPham.addEventListener("mouseout", function () {
+        motSanPham.style.color = "black";
+    });
+});
+
+const oTimKiem = document.querySelector("#oTimKiem");
+
+oTimKiem.addEventListener("input", function () {
+    const tuKhoa = oTimKiem.value.toLowerCase();
+    const ketQuaLoc = danhSach.filter(function (sp) {
+        return sp.ten.toLowerCase().includes(tuKhoa);
+    });
+    vedanhsach(ketQuaLoc);
+});
+
+const oPhuongThucThanhToan = document.querySelector("#phuongThucThanhToan");
+
+function layPhuongThucThanhToanText() {
+    const bang = {
+        tienMat: "Tiền mặt",
+        theNganHang: "Thẻ ngân hàng",
+        chuyenKhoan: "Chuyển khoản",
+        viDienTu: "Ví điện tử"
+    };
+    return bang[oPhuongThucThanhToan.value] || "Chưa chọn";
+}
+
+let gioHang = {};
+try {
+    gioHang = JSON.parse(localStorage.getItem("gioHang")) || {};
+} catch (error) {
+    gioHang = {};
+}
+
+const chiTietGioHang = document.querySelector("#chiTietGioHang");
+const soLuong = document.querySelector("#soLuong");
+const tongTienHienThi = document.querySelector("#tongTien");
+const dongGiamGia = document.querySelector("#dongGiamGia");
+const tongSauGiamHienThi = document.querySelector("#tongSauGiam");
+const maGiamGiaInput = document.querySelector("#maGiamGia");
+const nutApDungMaGiamGia = document.querySelector("#nutApDungMaGiamGia");
+const nutXoaMaGiamGia = document.querySelector("#nutXoaMaGiamGia");
+const thongBaoMaGiamGia = document.querySelector("#thongBaoMaGiamGia");
+const dungDiemCheckbox = document.querySelector("#dungDiemCheckbox");
+const thongTinDiemThanhToan = document.querySelector("#thongTinDiemThanhToan");
+
+let maGiamGiaHienTai = "";
+let soTienGiam = 0;
+
+function layDiemTichLuy() {
+    try {
+        return Number(localStorage.getItem("diemTichLuy")) || 0;
+    } catch (error) {
+        return 0;
+    }
+}
+
+function capNhatHienThiTichDiem() {
+    const diem = layDiemTichLuy();
+    if (soDiemTich) {
+        soDiemTich.textContent = diem.toLocaleString();
+    }
+    if (dongDiem) {
+        dongDiem.textContent = `Điểm tích lũy: ${diem.toLocaleString()} điểm`;
+    }
+    if (thongTinDiemThanhToan) {
+        thongTinDiemThanhToan.textContent = `Điểm hiện có: ${diem.toLocaleString()} điểm (1 điểm = 1.000đ)`;
+    }
+    if (dungDiemCheckbox) {
+        dungDiemCheckbox.disabled = diem <= 0;
+        if (diem <= 0 && dungDiemCheckbox.checked) {
+            dungDiemCheckbox.checked = false;
+        }
+    }
+}
+
+function tinhTongTien() {
+    let tongTien = 0;
+    Object.keys(gioHang).forEach(function (tenSanPham) {
+        const sanPham = gioHang[tenSanPham];
+        tongTien += sanPham.gia * sanPham.soLuong;
+    });
+    return tongTien;
+}
+
+function capNhatGiamGiaHienThi() {
+    const tongTien = tinhTongTien();
+    const maGiamGia = maGiamGiaHienTai.toUpperCase();
+
+    if (!maGiamGia) {
+        soTienGiam = 0;
+        dongGiamGia.textContent = "Giảm giá: 0đ";
+        tongSauGiamHienThi.textContent = "Còn lại: 0đ";
+        return;
+    }
+
+    const bangMa = {
+        SALE10: 0.1,
+        WELCOME20: 0.2,
+        SAVE30: 0.3
+    };
+
+    const tyLeGiam = bangMa[maGiamGia] || 0;
+    if (tyLeGiam > 0) {
+        soTienGiam = Math.round(tongTien * tyLeGiam);
+        dongGiamGia.textContent = `Giảm giá: ${soTienGiam.toLocaleString()}đ`;
+        tongSauGiamHienThi.textContent = `Còn lại: ${(tongTien - soTienGiam).toLocaleString()}đ`;
+    } else {
+        soTienGiam = 0;
+        dongGiamGia.textContent = "Giảm giá: 0đ";
+        tongSauGiamHienThi.textContent = "Còn lại: 0đ";
+    }
+}
+
+capNhatGioHang();
+
+oDanhSach.addEventListener("click", function (e) {
+    if (e.target.classList.contains("nutThemGio")) {
+        const tenSanPham = e.target.dataset.ten;
+        const giaSanPham = Number(e.target.dataset.gia);
+        const tonKhoGoc = Number(e.target.dataset.tonkho);
+        themVaoGioHangTuSanPham(tenSanPham, giaSanPham, tonKhoGoc);
+    }
+
+    if (e.target.classList.contains("nutbogio")) {
+        const tenSanPham = e.target.dataset.ten;
+
+        if (gioHang[tenSanPham] && gioHang[tenSanPham].soLuong > 0) {
+            gioHang[tenSanPham].soLuong = gioHang[tenSanPham].soLuong - 1;
+
+            if (gioHang[tenSanPham].soLuong <= 0) {
+                delete gioHang[tenSanPham];
+            }
+
+            capNhatGioHang();
+            hienThiThongBao(`Đã giảm số lượng ${tenSanPham}.`, "info");
+        }
+    }
+
+    if (e.target.classList.contains("nutYeuThich")) {
+        const tenSanPham = e.target.dataset.ten;
+        const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+        const viTri = yeuThich.indexOf(tenSanPham);
+
+        if (viTri === -1) {
+            yeuThich.push(tenSanPham);
+            hienThiThongBao(`Đã thêm ${tenSanPham} vào yêu thích.`, "success");
+        } else {
+            yeuThich.splice(viTri, 1);
+            hienThiThongBao(`Đã bỏ ${tenSanPham} khỏi yêu thích.`, "info");
+        }
+
+        localStorage.setItem("sanPhamYeuThich", JSON.stringify(yeuThich));
+        capNhatYeuThich();
+        renderPopupYeuThich();
+        vedanhsach(danhSach);
+    }
+
+    if (e.target.classList.contains("tenSanPham")) {
+        const chiTiet = e.target.closest("li").querySelector(".chitiet");
+        if (chiTiet.style.display === "none") {
+            chiTiet.style.display = "block";
+        } else {
+            chiTiet.style.display = "none";
+        }
+    }
+});
+
+const oSapXepGia = document.querySelector("#oSapXepGia");
+oSapXepGia.addEventListener("change", function () {
+    const giaTri = oSapXepGia.value;
+    let danhSachSapXep = [...danhSach];
+    if (giaTri === "tang") {
+        danhSachSapXep.sort(function (a, b) {
+            return a.gia - b.gia;
+        });
+    } else if (giaTri === "giam") {
+        danhSachSapXep.sort(function (a, b) {
+            return b.gia - a.gia;
+        });
+    }
+    vedanhsach(danhSachSapXep);
+});
+
+const nutDangNhap = document.querySelector("#nutDangNhap");
+const formDangNhap = document.querySelector("#formDangNhap");
+const nutHienThi = document.querySelector("#nutHienThi");
+const nutDongForm = document.querySelector("#nutDongForm");
+const nutXacNhanDangNhap = document.querySelector("#nutXacNhanDangNhap");
+const cacNutMangXaHoi = document.querySelectorAll(".nutMangXaHoi");
+const nutThongTinGiaoHang = document.querySelector("#nutThongTinGiaoHang");
+const formThongTinGiaoHang = document.querySelector("#formThongTinGiaoHang");
+const nutLuuThongTin = document.querySelector("#nutLuuThongTin");
+const khungThongTinGiaoHang = document.querySelector("#khungThongTinGiaoHang");
+const nutGioHangIcon = document.querySelector("#nutGioHangIcon");
+const panelGioHang = document.querySelector("#panelGioHang");
+const mucSanPhamYeuThich = document.querySelector("#mucSanPhamYeuThich");
+const mucXemTichDiem = document.querySelector("#mucXemTichDiem");
+const popupMenuChucNang = document.querySelector("#popupMenuChucNang");
+const popupMenuTitle = document.querySelector("#popupMenuTitle");
+const popupMenuBody = document.querySelector("#popupMenuBody");
+const dongPopupMenuChucNang = document.querySelector("#dongPopupMenuChucNang");
+const khungTichDiem = document.querySelector("#khungTichDiem");
+const soDiemTich = document.querySelector("#soDiemTich");
+const dongDiem = document.querySelector("#dongDiem");
+
+function capNhatThongTinCaNhan(duLieuMoi = {}) {
+    const thongTinMacDinh = {
+        hoTen: "Nguyễn Huy Dung",
+        soDienThoai: "0909 123 456",
+        email: "dung.nguyen@nhathuocbichphuong.vn",
+        ngaySinh: "14/07/1995",
+        diaChi: "Quang Trung / 110 Tổ 9, KP 8, Trị An, Đồng Nai",
+        maThanhVien: "BP-147",
+        capDo: "Thành viên bạc"
+    };
+
+    let thongTinHienTai = {};
+    try {
+        thongTinHienTai = JSON.parse(localStorage.getItem("thongTinCaNhan")) || {};
+    } catch (error) {
+        thongTinHienTai = {};
+    }
+
+    const thongTinMoi = {
+        ...thongTinMacDinh,
+        ...thongTinHienTai,
+        ...duLieuMoi
+    };
+
+    localStorage.setItem("thongTinCaNhan", JSON.stringify(thongTinMoi));
+    return thongTinMoi;
+}
+
+function capNhatNutDangNhap() {
+
+    if (localStorage.getItem("daDangNhap") === "true") {
+        nutDangNhap.textContent = "Đăng xuất";
+    } else {
+        nutDangNhap.textContent = "Đăng nhập";
+    }
+
+}
+
+capNhatNutDangNhap();
+
+nutDangNhap.addEventListener("click", function (event) {
+    event.stopPropagation();
+
+    if (localStorage.getItem("daDangNhap") === "true") {
+
+        const xacNhan = confirm("Bạn có muốn đăng xuất không?");
+
+        if (xacNhan) {
+
+            localStorage.removeItem("daDangNhap");
+
+            capNhatNutDangNhap();
+
+            hienThiThongBao("Đã đăng xuất", "info");
+
+        }
+
+    } else {
+
+        formDangNhap.style.display = "block";
+
+    }
+
+});
+
+nutHienThi.addEventListener("click", function () {
+
+    const oMatKhau = document.querySelector("#oMatKhau");
+
+    if (oMatKhau.type === "password") {
+
+        oMatKhau.type = "text";
+        nutHienThi.textContent = "🙈 Ẩn mật khẩu";
+
+    } else {
+
+        oMatKhau.type = "password";
+        nutHienThi.textContent = "👁️ Hiện mật khẩu";
+
+    }
+
+});
+
+nutDongForm.addEventListener("click", function () {
+
+    formDangNhap.style.display = "none";
+
+});
+
+nutXacNhanDangNhap.addEventListener("click", function () {
+
+    const taiKhoan = document.querySelector("#oTaiKhoan").value;
+    const matKhau = document.querySelector("#oMatKhau").value;
+
+    if (taiKhoan === "" || matKhau === "") {
+
+        hienThiThongBao("Vui lòng nhập đủ tài khoản và mật khẩu.", "error");
+        return;
+
+    }
+
+    if (taiKhoan === "Nguyenhuydung147" && matKhau === "Nguyenhuydung147") {
+
+        localStorage.setItem("daDangNhap", "true");
+        capNhatThongTinCaNhan({ hoTen: taiKhoan });
+
+        hienThiThongBao("Đăng nhập thành công! Xin chào " + taiKhoan, "success");
+
+        formDangNhap.style.display = "none";
+
+        document.querySelector("#oTaiKhoan").value = "";
+        document.querySelector("#oMatKhau").value = "";
+
+        capNhatNutDangNhap();
+
+    } else {
+
+        hienThiThongBao("Sai tài khoản hoặc mật khẩu.", "error");
+
+    }
+
+});
+
+cacNutMangXaHoi.forEach(function (nut) {
+
+    nut.addEventListener("click", function () {
+
+        const tenMang = nut.dataset.mang;
+        hienThiThongBao("Đăng nhập bằng " + tenMang + "", "info");
+
+    });
+
+});
+
+const cacNutMoMenu = document.querySelectorAll(".nutMoMenu");
+const megaMenu = document.querySelector("#megaMenu");
+const cotPhai = document.querySelector("#cotPhai");
+const nutTatCaSanPham = document.querySelector("#nutTatCaSanPham");
+
+function veCotPhai(mang) {
+    cotPhai.innerHTML = mang.map(function (sp) {
+        return `<span class="mucCotPhai" data-ten="${sp.ten}">${sp.ten}</span>`;
+    }).join("");
+}
+
+cacNutMoMenu.forEach(function (nut) {
+    nut.addEventListener("click", function () {
+        const nhomChinh = nut.dataset.nhom;
+        const dangMoDungNhomNay = megaMenu.style.display === "flex" && megaMenu.dataset.nhomDangMo === nhomChinh;
+
+        if (dangMoDungNhomNay) {
+            megaMenu.style.display = "none";
+            return;
+        }
+
+        const dsTrongNhom = danhSach.filter(function (sp) {
+            return sp.nhomLon === nhomChinh;
+        });
+
+        veCotPhai(dsTrongNhom);
+        megaMenu.style.display = "flex";
+        megaMenu.dataset.nhomDangMo = nhomChinh;
+    });
+});
+
+cotPhai.addEventListener("click", function (e) {
+    if (e.target.classList.contains("mucCotPhai")) {
+        const ten = e.target.dataset.ten;
+        const ketQua = danhSach.filter(function (sp) { return sp.ten === ten; });
+        vedanhsach(ketQua);
+        megaMenu.style.display = "none";
+    }
+});
+
+document.addEventListener("click", function (e) {
+    const laNutMoMenu = e.target.classList.contains("nutMoMenu");
+    const laBenTrongMenu = megaMenu.contains(e.target);
+    if (!laNutMoMenu && !laBenTrongMenu) {
+        megaMenu.style.display = "none";
+    }
+
+    const clickTrongMenuBaGach = menuBaGach.contains(e.target) || e.target === dauBaGach;
+    if (!clickTrongMenuBaGach) {
+        menuBaGach.style.display = "none";
+    }
+
+    const clickTrongPanelGioHang = panelGioHang.contains(e.target) || e.target === nutGioHangIcon;
+    if (!clickTrongPanelGioHang && panelGioHang.style.display === "block") {
+        panelGioHang.style.display = "none";
+    }
+
+    const clickTrongFormDangNhap = formDangNhap.contains(e.target) || e.target === nutDangNhap;
+    if (!clickTrongFormDangNhap && formDangNhap.style.display === "block") {
+        formDangNhap.style.display = "none";
+    }
+
+    const clickTrongThongTinGiaoHang = khungThongTinGiaoHang.contains(e.target) || e.target === nutThongTinGiaoHang;
+    if (!clickTrongThongTinGiaoHang && formThongTinGiaoHang.style.display === "block") {
+        formThongTinGiaoHang.style.display = "none";
+    }
+});
+
+nutTatCaSanPham.addEventListener("click", function () {
+    vedanhsach(danhSach);
+});
+
+const dauBaGach = document.getElementById("dauBaGach");
+const menuBaGach = document.getElementById("menuBaGach");
+
+function moPopupMenu(tieuDe, html) {
+    if (!popupMenuChucNang || !popupMenuTitle || !popupMenuBody) {
+        return;
+    }
+
+    popupMenuTitle.textContent = tieuDe;
+    popupMenuBody.innerHTML = html;
+    popupMenuChucNang.style.display = "flex";
+}
+
+function dongPopupMenu() {
+    if (popupMenuChucNang) {
+        popupMenuChucNang.style.display = "none";
+    }
+}
+
+function xuLyMucMenu(action) {
+    switch (action) {
+        case "donHang":
+            const khungDonHang = document.querySelector(".khuVucLichSuDonHang");
+            if (khungDonHang) {
+                khungDonHang.scrollIntoView({ behavior: "smooth", block: "start" });
+                khungDonHang.style.boxShadow = "0 0 0 3px rgba(15, 108, 189, 0.16)";
+                setTimeout(function () {
+                    khungDonHang.style.boxShadow = "";
+                }, 1600);
+            }
+            moPopupMenu("Đơn hàng của tôi", `
+                <div class="bangThongTin">
+                    <div class="hangThongTin">Lịch sử đơn hàng của bạn đang hiển thị ở phần bên dưới.</div>
+                    <div class="hangThongTin">Bạn có thể xem lại thông tin, ngày đặt và tình trạng đơn hàng tại đây.</div>
+                </div>
+            `);
+            break;
+
+        case "thongTin":
+            const thongTinCaNhan = capNhatThongTinCaNhan();
+            moPopupMenu("Thông tin cá nhân", `
+                <div class="bangThongTin">
+                    <div class="hangThongTin"><strong>Họ và tên:</strong> ${thongTinCaNhan.hoTen}</div>
+                    <div class="hangThongTin"><strong>Số điện thoại:</strong> ${thongTinCaNhan.soDienThoai}</div>
+                    <div class="hangThongTin"><strong>Email:</strong> ${thongTinCaNhan.email}</div>
+                    <div class="hangThongTin"><strong>Ngày sinh:</strong> ${thongTinCaNhan.ngaySinh}</div>
+                    <div class="hangThongTin"><strong>Địa chỉ:</strong> ${thongTinCaNhan.diaChi}</div>
+                    <div class="hangThongTin"><strong>Mã thành viên:</strong> ${thongTinCaNhan.maThanhVien}</div>
+                    <div class="hangThongTin"><strong>Cấp độ:</strong> ${thongTinCaNhan.capDo}</div>
+                </div>
+            `);
+            break;
+
+        case "yeuThich":
+            moPopupYeuThich();
+            break;
+
+        case "tichDiem":
+            if (khungTichDiem) {
+                khungTichDiem.style.display = "block";
+                capNhatHienThiTichDiem();
+            }
+            moPopupMenu("Tích điểm", `
+                <div class="bangThongTin">
+                    <div class="hangThongTin"><strong>Điểm hiện tại:</strong> ${layDiemTichLuy().toLocaleString()} điểm</div>
+                    <div class="hangThongTin"><strong>Tỷ lệ quy đổi:</strong> 1 điểm = 1.000đ</div>
+                    <div class="hangThongTin">Sử dụng điểm khi thanh toán để giảm giá trực tiếp.</div>
+                </div>
+            `);
+            break;
+
+        case "hoTro":
+            moPopupMenu("Hỗ trợ / Liên hệ", `
+                <div class="bangThongTin">
+                    <div class="hangThongTin"><strong>Hotline:</strong> 1900 1234</div>
+                    <div class="hangThongTin"><strong>Email:</strong> hotro@nhathuocbichphuong.vn</div>
+                    <div class="hangThongTin"><strong>Giờ làm việc:</strong> 7:30 - 20:00, cả tuần</div>
+                </div>
+            `);
+            break;
+    }
+}
+
+const cacMucMenu = document.querySelectorAll("#menuBaGach .mucMenu");
+
+cacMucMenu.forEach(function (muc) {
+    muc.addEventListener("click", function (event) {
+        event.stopPropagation();
+        menuBaGach.style.display = "none";
+        xuLyMucMenu(muc.dataset.action);
+        hienThiThongBao("Đã mở chức năng phù hợp.", "info");
+    });
+});
+
+if (dongPopupYeuThichButton) {
+    dongPopupYeuThichButton.addEventListener("click", function () {
+        dongPopupYeuThich();
+    });
+}
+
+if (popupYeuThich) {
+    popupYeuThich.addEventListener("click", function (event) {
+        if (event.target === popupYeuThich) {
+            dongPopupYeuThich();
+        }
+    });
+}
+
+if (popupMenuChucNang) {
+    popupMenuChucNang.addEventListener("click", function (event) {
+        if (event.target === popupMenuChucNang) {
+            dongPopupMenu();
+        }
+    });
+}
+
+if (dongPopupMenuChucNang) {
+    dongPopupMenuChucNang.addEventListener("click", function () {
+        dongPopupMenu();
+    });
+}
+
+if (noiDungPopupYeuThich) {
+    noiDungPopupYeuThich.addEventListener("click", function (event) {
+        if (event.target.classList.contains("nutBoYeuThichPopup")) {
+            const tenSanPham = event.target.dataset.ten;
+            const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+            const viTri = yeuThich.indexOf(tenSanPham);
+
+            if (viTri !== -1) {
+                yeuThich.splice(viTri, 1);
+                localStorage.setItem("sanPhamYeuThich", JSON.stringify(yeuThich));
+                capNhatYeuThich();
+                renderPopupYeuThich();
+                vedanhsach(danhSach);
+                hienThiThongBao(`Đã bỏ ${tenSanPham} khỏi yêu thích.`, "info");
+            }
+        }
+
+        if (event.target.classList.contains("nutThemGioPopup")) {
+            const tenSanPham = event.target.dataset.ten;
+            const giaSanPham = Number(event.target.dataset.gia);
+            const tonKhoGoc = Number(event.target.dataset.tonkho);
+            themVaoGioHangTuSanPham(tenSanPham, giaSanPham, tonKhoGoc);
+        }
+    });
+}
+
+mucXemTichDiem.addEventListener("click", function (event) {
+    event.stopPropagation();
+    if (khungTichDiem.style.display === "block") {
+        khungTichDiem.style.display = "none";
+    } else {
+        khungTichDiem.style.display = "block";
+        capNhatHienThiTichDiem();
+    }
+});
+
+dauBaGach.addEventListener("click", function (event) {
+    event.stopPropagation();
+    menuBaGach.style.display = menuBaGach.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (suKien) {
+
+    if (
+        !menuBaGach.contains(suKien.target) &&
+        suKien.target !== dauBaGach
+    ) {
+        menuBaGach.style.display = "none";
+    }
+});
+
+function layThongTinGiaoHang() {
+    return {
+        hoTen: document.querySelector("#hoTenNguoiNhan").value.trim(),
+        soDienThoai: document.querySelector("#soDienThoai").value.trim(),
+        diaChi: document.querySelector("#diaChiGiaoHang").value.trim()
+    };
+}
+
+function taiThongTinGiaoHang() {
+    try {
+        const duLieu = JSON.parse(localStorage.getItem("thongTinGiaoHang")) || {};
+        if (duLieu.hoTen) document.querySelector("#hoTenNguoiNhan").value = duLieu.hoTen;
+        if (duLieu.soDienThoai) document.querySelector("#soDienThoai").value = duLieu.soDienThoai;
+        if (duLieu.diaChi) document.querySelector("#diaChiGiaoHang").value = duLieu.diaChi;
+        if (duLieu.hoTen || duLieu.soDienThoai || duLieu.diaChi) {
+            nutThongTinGiaoHang.textContent = "Thông tin giao hàng ✓";
+        } else {
+            nutThongTinGiaoHang.textContent = "Thông tin giao hàng";
+        }
+    } catch (error) {
+        nutThongTinGiaoHang.textContent = "Thông tin giao hàng";
+    }
+}
+
+function luuThongTinGiaoHang() {
+    const thongTin = layThongTinGiaoHang();
+    localStorage.setItem("thongTinGiaoHang", JSON.stringify(thongTin));
+    if (thongTin.hoTen || thongTin.soDienThoai || thongTin.diaChi) {
+        nutThongTinGiaoHang.textContent = "Thông tin giao hàng ✓";
+    }
+}
+
+function capNhatGioHang() {
+
+    let tongSoLuong = 0;
+    let tongTien = 0;
+
+    chiTietGioHang.innerHTML = "";
+
+    const danhSachSanPham = Object.keys(gioHang);
+
+    if (danhSachSanPham.length === 0) {
+        chiTietGioHang.innerHTML = "<p>Giỏ hàng đang trống.</p>";
+    } else {
+        danhSachSanPham.forEach(function (tenSanPham) {
+            const sanPham = gioHang[tenSanPham];
+            tongSoLuong += sanPham.soLuong;
+            tongTien += sanPham.gia * sanPham.soLuong;
+
+            chiTietGioHang.innerHTML += `
+
+            <div class="sanPhamTrongGio">
+
+                <p>
+                    <b>${tenSanPham}</b>
+                </p>
+
+                <p>
+                    Giá: ${sanPham.gia.toLocaleString()}đ
+                </p>
+
+                <button
+                class="giamSoLuong"
+                data-ten="${tenSanPham}">
+                -
+                </button>
+
+                <span>
+                    ${sanPham.soLuong}
+                </span>
+
+                <button
+                class="tangSoLuong"
+                data-ten="${tenSanPham}">
+                +
+                </button>
+
+                <button
+                class="xoaSanPham"
+                data-ten="${tenSanPham}">
+                🗑
+                </button>
+                <hr>
+            </div>
+
+            `;
+        });
+    }
+
+    soLuong.textContent = tongSoLuong;
+    tongTienHienThi.textContent = tongTien.toLocaleString();
+    capNhatGiamGiaHienThi();
+    localStorage.setItem("gioHang", JSON.stringify(gioHang));
+}
+
+chiTietGioHang.addEventListener("click", function (e) {
+
+    const ten =
+        e.target.dataset.ten;
+
+    if (e.target.classList.contains("tangSoLuong")) {
+
+        gioHang[ten].soLuong++;
+        capNhatGioHang();
+    }
+
+    if (e.target.classList.contains("giamSoLuong")) {
+
+        gioHang[ten].soLuong--;
+
+        if (gioHang[ten].soLuong <= 0) {
+            delete gioHang[ten];
+        }
+        capNhatGioHang();
+    }
+
+    if (e.target.classList.contains("xoaSanPham")) {
+
+        delete gioHang[ten];
+        capNhatGioHang();
+    }
+
+});
+
+const nutXoaGio =
+    document.querySelector("#nutXoaGio");
+
+nutXoaGio.addEventListener(
+    "click",
+    function () {
+
+        if (confirm("Bạn có muốn xóa toàn bộ giỏ hàng không?")) {
+
+            gioHang = {};
+            capNhatGioHang();
+
+        }
+
+    });
+
+nutApDungMaGiamGia.addEventListener("click", function () {
+    const maNhap = maGiamGiaInput.value.trim().toUpperCase();
+    const bangMa = {
+        SALE10: 0.1,
+        WELCOME20: 0.2,
+        SAVE30: 0.3
+    };
+
+    if (!maNhap) {
+        thongBaoMaGiamGia.textContent = "Vui lòng nhập mã giảm giá.";
+        thongBaoMaGiamGia.style.color = "#b45309";
+        return;
+    }
+
+    if (bangMa[maNhap]) {
+        maGiamGiaHienTai = maNhap;
+        capNhatGioHang();
+        thongBaoMaGiamGia.textContent = `Đã áp dụng mã ${maNhap}.`;
+        thongBaoMaGiamGia.style.color = "#0f6cbd";
+        hienThiThongBao(`Đã áp dụng mã ${maNhap}.`, "success");
+    } else {
+        maGiamGiaHienTai = "";
+        capNhatGioHang();
+        thongBaoMaGiamGia.textContent = "Mã giảm giá không hợp lệ.";
+        thongBaoMaGiamGia.style.color = "#dc2626";
+        hienThiThongBao("Mã giảm giá không hợp lệ.", "error");
+    }
+});
+
+nutXoaMaGiamGia.addEventListener("click", function () {
+    maGiamGiaHienTai = "";
+    maGiamGiaInput.value = "";
+    capNhatGioHang();
+    thongBaoMaGiamGia.textContent = "Đã xóa mã giảm giá.";
+    thongBaoMaGiamGia.style.color = "#4c7a9a";
+    hienThiThongBao("Đã xóa mã giảm giá.", "info");
+});
+
+const nutThanhToan =
+    document.querySelector("#nutThanhToan");
+
+nutThanhToan.addEventListener("click", function () {
+
+    if (Object.keys(gioHang).length === 0) {
+        hienThiThongBao("Giỏ hàng đang trống. Vui lòng thêm sản phẩm trước khi thanh toán.", "error");
+        return;
+    }
+
+    const thongTinGiaoHang = layThongTinGiaoHang();
+    const thongTinBiThieu = [];
+
+    if (!thongTinGiaoHang.hoTen) thongTinBiThieu.push("Họ tên người nhận");
+    if (!thongTinGiaoHang.soDienThoai) thongTinBiThieu.push("Số điện thoại");
+    if (!thongTinGiaoHang.diaChi) thongTinBiThieu.push("Địa chỉ giao hàng");
+
+    if (thongTinBiThieu.length > 0) {
+        khungThongTinGiaoHang.style.display = "block";
+        formThongTinGiaoHang.style.display = "block";
+        hienThiThongBao(`Thiếu thông tin giao hàng: ${thongTinBiThieu.join(", ")}.`, "error");
+        return;
+    }
+
+    const xacNhanThanhToan = confirm("Bạn chắc chắn muốn thanh toán?");
+    if (!xacNhanThanhToan) {
+        return;
+    }
+
+    let tongTien = 0;
+    let hoaDon = "===== HÓA ĐƠN =====\n\n";
+
+    Object.keys(gioHang).forEach(function (ten) {
+        const sp = gioHang[ten];
+        const thanhTien = sp.gia * sp.soLuong;
+        tongTien += thanhTien;
+        hoaDon += `${ten}\nSL: ${sp.soLuong}\nThành tiền: ${thanhTien.toLocaleString()}đ\n\n`;
+    });
+
+    let tongTienSauGiam = Math.max(0, tongTien - soTienGiam);
+    let diemDaDung = 0;
+    let tienGiamDiem = 0;
+
+    if (dungDiemCheckbox && dungDiemCheckbox.checked) {
+        const diemCo = layDiemTichLuy();
+        const diemToiDa = Math.min(diemCo, Math.floor(tongTienSauGiam / 1000));
+        if (diemToiDa > 0) {
+            diemDaDung = diemToiDa;
+            tienGiamDiem = diemDaDung * 1000;
+            tongTienSauGiam = Math.max(0, tongTienSauGiam - tienGiamDiem);
+            localStorage.setItem("diemTichLuy", String(diemCo - diemDaDung));
+            hienThiThongBao(`Đã dùng ${diemDaDung} điểm, giảm ${tienGiamDiem.toLocaleString()}đ.`, "success");
+        } else {
+            hienThiThongBao("Bạn không đủ điểm để dùng.", "info");
+        }
+    }
+
+    const diemMoi = Math.floor(tongTienSauGiam / 10000);
+    const diemHienTai = layDiemTichLuy();
+    localStorage.setItem("diemTichLuy", String(diemHienTai + diemMoi));
+
+    hoaDon += `Thông tin giao hàng:\nHọ tên: ${thongTinGiaoHang.hoTen}\nSĐT: ${thongTinGiaoHang.soDienThoai}\nĐịa chỉ: ${thongTinGiaoHang.diaChi}\n\nPhương thức: ${layPhuongThucThanhToanText()}\nTổng tiền: ${tongTienSauGiam.toLocaleString()}đ\nCảm ơn quý khách!`;
+
+    const lichSuDonHang = document.querySelector("#lichSuDonHang");
+    const donHangMoi = {
+        thoiGian: new Date().toLocaleString("vi-VN"),
+        tongTien: tongTienSauGiam,
+        sanPham: Object.keys(gioHang).map(function (ten) {
+            return `${ten} x${gioHang[ten].soLuong}`;
+        })
+    };
+
+    let donHangDaCo = [];
+    try {
+        donHangDaCo = JSON.parse(localStorage.getItem("lichSuDonHang")) || [];
+    } catch (error) {
+        donHangDaCo = [];
+    }
+
+    donHangDaCo.unshift(donHangMoi);
+    localStorage.setItem("lichSuDonHang", JSON.stringify(donHangDaCo));
+
+    capNhatHienThiTichDiem();
+    hienThiThongBao("Đặt hàng thành công! Đơn hàng đã được lưu vào lịch sử.", "success");
+    capNhatLichSuDonHang();
+    gioHang = {};
+    capNhatGioHang();
+});
+
+nutThongTinGiaoHang.addEventListener("click", function (event) {
+    event.stopPropagation();
+    const dangMo = formThongTinGiaoHang.style.display === "block";
+    formThongTinGiaoHang.style.display = dangMo ? "none" : "block";
+    khungThongTinGiaoHang.style.display = "block";
+    if (!dangMo) {
+        taiThongTinGiaoHang();
+    }
+});
+
+nutLuuThongTin.addEventListener("click", function () {
+    luuThongTinGiaoHang();
+    formThongTinGiaoHang.style.display = "none";
+});
+
+nutGioHangIcon.addEventListener(
+    "click",
+    function (event) {
+        event.stopPropagation();
+        if (panelGioHang.style.display === "block") {
+            panelGioHang.style.display = "none";
+        } else {
+            panelGioHang.style.display = "block";
+        }
+    });
+
+function capNhatLichSuDonHang() {
+    const lichSuDonHang = document.querySelector("#lichSuDonHang");
+    if (!lichSuDonHang) {
+        return;
+    }
+
+    let donHangDaCo = [];
+
+    try {
+        donHangDaCo = JSON.parse(localStorage.getItem("lichSuDonHang")) || [];
+    } catch (error) {
+        donHangDaCo = [];
+    }
+
+    if (donHangDaCo.length === 0) {
+        lichSuDonHang.innerHTML = "<p>Chưa có đơn hàng nào.</p>";
+        return;
+    }
+
+    lichSuDonHang.innerHTML = donHangDaCo.slice(0, 5).map(function (donHang) {
+        return `
+            <div class="donHangItem">
+                <b>${donHang.thoiGian}</b><br>
+                Tổng: ${donHang.tongTien.toLocaleString()}đ<br>
+                Sản phẩm: ${donHang.sanPham.join(", ")} 
+            </div>
+        `;
+    }).join("");
+}
+
+taiThongTinGiaoHang();
+
+if (thongBaoStripItems.length > 0) {
+    function chayThongBaoStrip() {
+        thongBaoStripItems.forEach(function (item, index) {
+            item.classList.toggle("active", index === viTriThongBaoHienTai);
+        });
+        viTriThongBaoHienTai = (viTriThongBaoHienTai + 1) % thongBaoStripItems.length;
+    }
+
+    chayThongBaoStrip();
+    setInterval(chayThongBaoStrip, 3500);
+}
+
+capNhatGioHang();
+capNhatYeuThich();
+capNhatLichSuDonHang();
