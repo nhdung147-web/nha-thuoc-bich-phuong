@@ -21,21 +21,21 @@ const danhSach = [
 ];
 
 const oDanhSach = document.querySelector("#dsSanPham");
-const popupYeuThich = document.querySelector("#popupYeuThich");
-const noiDungPopupYeuThich = document.querySelector("#noiDungPopupYeuThich");
-const dongPopupYeuThichButton = document.querySelector("#dongPopupYeuThich");
+const khungYeuThich = document.querySelector("#khungYeuThich");
+const noiDungKhungYeuThich = document.querySelector("#noiDungKhungYeuThich");
+const dongKhungYeuThichButton = document.querySelector("#dongKhungYeuThich");
 const thongBao = document.querySelector("#thongBao");
 const thongBaoStripItems = Array.from(document.querySelectorAll(".thongBaoItem"));
 let viTriThongBaoHienTai = 0;
 
 function hienThiThongBao(message, type = "info") {
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    thongBao.appendChild(toast);
+    const thongTam = document.createElement("div");
+    thongTam.className = `thongItem ${type}`;
+    thongTam.textContent = message;
+    thongBao.appendChild(thongTam);
 
     setTimeout(function () {
-        toast.remove();
+        thongTam.remove();
     }, 2200);
 }
 
@@ -43,54 +43,54 @@ function capNhatYeuThich() {
     return;
 }
 
-function renderPopupYeuThich() {
+function hienThiKhungYeuThich() {
     const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
 
-    if (!noiDungPopupYeuThich) {
+    if (!noiDungKhungYeuThich) {
         return;
     }
 
-    noiDungPopupYeuThich.innerHTML = "";
+    noiDungKhungYeuThich.innerHTML = "";
 
     if (yeuThich.length === 0) {
-        noiDungPopupYeuThich.innerHTML = "<p>Chưa có sản phẩm yêu thích nào.</p>";
+        noiDungKhungYeuThich.innerHTML = "<p>Chưa có sản phẩm yêu thích nào.</p>";
         return;
     }
 
     yeuThich.forEach(function (tenSp) {
-        const sp = danhSach.find(function (item) {
-            return item.ten === tenSp;
+        const sp = danhSach.find(function (sanPhamItem) {
+            return sanPhamItem.ten === tenSp;
         });
 
         if (!sp) {
             return;
         }
 
-        noiDungPopupYeuThich.innerHTML += `
-            <div class="itemYeuThichModal">
+        noiDungKhungYeuThich.innerHTML += `
+            <div class="mucYeuThich">
                 <div>
                     <strong>${sp.ten}</strong>
                     <span>${sp.gia.toLocaleString()}đ</span>
                 </div>
-                <div class="hangNutYeuThichPopup">
-                    <button type="button" class="nutThemGioPopup" data-ten="${sp.ten}" data-gia="${sp.gia}" data-tonkho="${sp.tonkho}">Thêm vào giỏ</button>
-                    <button type="button" class="nutBoYeuThichPopup" data-ten="${sp.ten}">Bỏ</button>
+                <div class="hangNutYeuThichKhung">
+                    <button type="button" class="nutThemGioYeuThich" data-ten="${sp.ten}" data-gia="${sp.gia}" data-tonkho="${sp.tonkho}">Thêm vào giỏ</button>
+                    <button type="button" class="nutBoYeuThichKhung" data-ten="${sp.ten}">Bỏ</button>
                 </div>
             </div>
         `;
     });
 }
 
-function moPopupYeuThich() {
-    if (popupYeuThich) {
-        renderPopupYeuThich();
-        popupYeuThich.style.display = "flex";
+function moKhungYeuThich() {
+    if (khungYeuThich) {
+        hienThiKhungYeuThich();
+        khungYeuThich.style.display = "flex";
     }
 }
 
-function dongPopupYeuThich() {
-    if (popupYeuThich) {
-        popupYeuThich.style.display = "none";
+function dongKhungYeuThich() {
+    if (khungYeuThich) {
+        khungYeuThich.style.display = "none";
     }
 }
 
@@ -294,7 +294,7 @@ oDanhSach.addEventListener("click", function (e) {
 
         localStorage.setItem("sanPhamYeuThich", JSON.stringify(yeuThich));
         capNhatYeuThich();
-        renderPopupYeuThich();
+        hienThiKhungYeuThich();
         vedanhsach(danhSach);
     }
 
@@ -325,23 +325,25 @@ oSapXepGia.addEventListener("change", function () {
 });
 
 const nutDangNhap = document.querySelector("#nutDangNhap");
-const formDangNhap = document.querySelector("#formDangNhap");
-const nutHienThi = document.querySelector("#nutHienThi");
-const nutDongForm = document.querySelector("#nutDongForm");
-const nutXacNhanDangNhap = document.querySelector("#nutXacNhanDangNhap");
+const containerDangNhap = document.querySelector("#containerDangNhap");
+const nutChuyenDangKy = document.querySelector("#nutChuyenDangKy");
+const nutChuyenDangNhap = document.querySelector("#nutChuyenDangNhap");
+const dongContainerDangNhap = document.querySelector("#dongContainerDangNhap");
+const nutXacNhanDangNhap2 = document.querySelector("#nutXacNhanDangNhap2");
+const nutXacNhanDangKy = document.querySelector("#nutXacNhanDangKy");
 const cacNutMangXaHoi = document.querySelectorAll(".nutMangXaHoi");
 const nutThongTinGiaoHang = document.querySelector("#nutThongTinGiaoHang");
 const formThongTinGiaoHang = document.querySelector("#formThongTinGiaoHang");
 const nutLuuThongTin = document.querySelector("#nutLuuThongTin");
 const khungThongTinGiaoHang = document.querySelector("#khungThongTinGiaoHang");
 const nutGioHangIcon = document.querySelector("#nutGioHangIcon");
-const panelGioHang = document.querySelector("#panelGioHang");
+const khungGioHang = document.querySelector("#khungGioHang");
 const mucSanPhamYeuThich = document.querySelector("#mucSanPhamYeuThich");
 const mucXemTichDiem = document.querySelector("#mucXemTichDiem");
-const popupMenuChucNang = document.querySelector("#popupMenuChucNang");
-const popupMenuTitle = document.querySelector("#popupMenuTitle");
-const popupMenuBody = document.querySelector("#popupMenuBody");
-const dongPopupMenuChucNang = document.querySelector("#dongPopupMenuChucNang");
+const khungMenuChucNang = document.querySelector("#menuChucNang");
+const tieuDeMenuChucNang = document.querySelector("#tieuDeMenuChucNang");
+const noiDungMenuChucNang = document.querySelector("#noiDungMenuChucNang");
+const dongMenuChucNang = document.querySelector("#dongMenuChucNang");
 const khungTichDiem = document.querySelector("#khungTichDiem");
 const soDiemTich = document.querySelector("#soDiemTich");
 const dongDiem = document.querySelector("#dongDiem");
@@ -404,69 +406,72 @@ nutDangNhap.addEventListener("click", function (event) {
         }
 
     } else {
-
-        formDangNhap.style.display = "block";
-
+        containerDangNhap.classList.remove("active");
+        containerDangNhap.style.display = "block";
     }
 
 });
 
-nutHienThi.addEventListener("click", function () {
-
-    const oMatKhau = document.querySelector("#oMatKhau");
-
-    if (oMatKhau.type === "password") {
-
-        oMatKhau.type = "text";
-        nutHienThi.textContent = "🙈 Ẩn mật khẩu";
-
-    } else {
-
-        oMatKhau.type = "password";
-        nutHienThi.textContent = "👁️ Hiện mật khẩu";
-
-    }
-
+const cacNutHienThiMK = document.querySelectorAll(".nutHienThiMK");
+cacNutHienThiMK.forEach(function (nut) {
+    nut.addEventListener("click", function () {
+        const oInput = document.querySelector("#" + nut.dataset.target);
+        if (oInput.type === "password") {
+            oInput.type = "text";
+            nut.textContent = "🙈";
+        } else {
+            oInput.type = "password";
+            nut.textContent = "👁️";
+        }
+    });
 });
 
-nutDongForm.addEventListener("click", function () {
-
-    formDangNhap.style.display = "none";
-
+dongContainerDangNhap.addEventListener("click", function () {
+    containerDangNhap.style.display = "none";
 });
 
-nutXacNhanDangNhap.addEventListener("click", function () {
+nutChuyenDangKy.addEventListener("click", function () {
+    containerDangNhap.classList.add("active");
+});
 
-    const taiKhoan = document.querySelector("#oTaiKhoan").value;
-    const matKhau = document.querySelector("#oMatKhau").value;
+nutChuyenDangNhap.addEventListener("click", function () {
+    containerDangNhap.classList.remove("active");
+});
+
+nutXacNhanDangNhap2.addEventListener("click", function () {
+    const taiKhoan = document.querySelector("#dnTaiKhoan").value;
+    const matKhau = document.querySelector("#dnMatKhau").value;
 
     if (taiKhoan === "" || matKhau === "") {
-
         hienThiThongBao("Vui lòng nhập đủ tài khoản và mật khẩu.", "error");
         return;
-
     }
 
     if (taiKhoan === "Nguyenhuydung147" && matKhau === "Nguyenhuydung147") {
-
         localStorage.setItem("daDangNhap", "true");
         capNhatThongTinCaNhan({ hoTen: taiKhoan });
-
         hienThiThongBao("Đăng nhập thành công! Xin chào " + taiKhoan, "success");
-
-        formDangNhap.style.display = "none";
-
-        document.querySelector("#oTaiKhoan").value = "";
-        document.querySelector("#oMatKhau").value = "";
-
+        containerDangNhap.style.display = "none";
+        document.querySelector("#dnTaiKhoan").value = "";
+        document.querySelector("#dnMatKhau").value = "";
         capNhatNutDangNhap();
-
     } else {
-
         hienThiThongBao("Sai tài khoản hoặc mật khẩu.", "error");
+    }
+});
 
+nutXacNhanDangKy.addEventListener("click", function () {
+    const hoTen = document.querySelector("#dkHoTen").value;
+    const taiKhoan = document.querySelector("#dkTaiKhoan").value;
+    const matKhau = document.querySelector("#dkMatKhau").value;
+
+    if (hoTen === "" || taiKhoan === "" || matKhau === "") {
+        hienThiThongBao("Vui lòng nhập đủ thông tin đăng ký.", "error");
+        return;
     }
 
+    hienThiThongBao("Đăng ký demo thành công! Cần Backend thật để lưu tài khoản.", "success");
+    containerDangNhap.classList.remove("active");
 });
 
 cacNutMangXaHoi.forEach(function (nut) {
@@ -532,14 +537,14 @@ document.addEventListener("click", function (e) {
         menuBaGach.style.display = "none";
     }
 
-    const clickTrongPanelGioHang = panelGioHang.contains(e.target) || e.target === nutGioHangIcon;
-    if (!clickTrongPanelGioHang && panelGioHang.style.display === "block") {
-        panelGioHang.style.display = "none";
+    const clickTrongKhungGioHang = khungGioHang.contains(e.target) || e.target === nutGioHangIcon;
+    if (!clickTrongKhungGioHang && khungGioHang.style.display === "block") {
+        khungGioHang.style.display = "none";
     }
 
-    const clickTrongFormDangNhap = formDangNhap.contains(e.target) || e.target === nutDangNhap;
-    if (!clickTrongFormDangNhap && formDangNhap.style.display === "block") {
-        formDangNhap.style.display = "none";
+    const clickTrongFormDangNhap = containerDangNhap.contains(e.target) || e.target === nutDangNhap;
+    if (!clickTrongFormDangNhap && containerDangNhap.style.display === "block") {
+        containerDangNhap.style.display = "none";
     }
 
     const clickTrongThongTinGiaoHang = khungThongTinGiaoHang.contains(e.target) || e.target === nutThongTinGiaoHang;
@@ -555,19 +560,19 @@ nutTatCaSanPham.addEventListener("click", function () {
 const dauBaGach = document.getElementById("dauBaGach");
 const menuBaGach = document.getElementById("menuBaGach");
 
-function moPopupMenu(tieuDe, html) {
-    if (!popupMenuChucNang || !popupMenuTitle || !popupMenuBody) {
+function moKhungMenu(tieuDe, html) {
+    if (!khungMenuChucNang || !tieuDeMenuChucNang || !noiDungMenuChucNang) {
         return;
     }
 
-    popupMenuTitle.textContent = tieuDe;
-    popupMenuBody.innerHTML = html;
-    popupMenuChucNang.style.display = "flex";
+    tieuDeMenuChucNang.textContent = tieuDe;
+    noiDungMenuChucNang.innerHTML = html;
+    khungMenuChucNang.style.display = "flex";
 }
 
-function dongPopupMenu() {
-    if (popupMenuChucNang) {
-        popupMenuChucNang.style.display = "none";
+function dongKhungMenu() {
+    if (khungMenuChucNang) {
+        khungMenuChucNang.style.display = "none";
     }
 }
 
@@ -582,7 +587,7 @@ function xuLyMucMenu(action) {
                     khungDonHang.style.boxShadow = "";
                 }, 1600);
             }
-            moPopupMenu("Đơn hàng của tôi", `
+            moKhungMenu("Đơn hàng của tôi", `
                 <div class="bangThongTin">
                     <div class="hangThongTin">Lịch sử đơn hàng của bạn đang hiển thị ở phần bên dưới.</div>
                     <div class="hangThongTin">Bạn có thể xem lại thông tin, ngày đặt và tình trạng đơn hàng tại đây.</div>
@@ -592,7 +597,7 @@ function xuLyMucMenu(action) {
 
         case "thongTin":
             const thongTinCaNhan = capNhatThongTinCaNhan();
-            moPopupMenu("Thông tin cá nhân", `
+            moKhungMenu("Thông tin cá nhân", `
                 <div class="bangThongTin">
                     <div class="hangThongTin"><strong>Họ và tên:</strong> ${thongTinCaNhan.hoTen}</div>
                     <div class="hangThongTin"><strong>Số điện thoại:</strong> ${thongTinCaNhan.soDienThoai}</div>
@@ -606,7 +611,7 @@ function xuLyMucMenu(action) {
             break;
 
         case "yeuThich":
-            moPopupYeuThich();
+            moKhungYeuThich();
             break;
 
         case "tichDiem":
@@ -614,7 +619,7 @@ function xuLyMucMenu(action) {
                 khungTichDiem.style.display = "block";
                 capNhatHienThiTichDiem();
             }
-            moPopupMenu("Tích điểm", `
+            moKhungMenu("Tích điểm", `
                 <div class="bangThongTin">
                     <div class="hangThongTin"><strong>Điểm hiện tại:</strong> ${layDiemTichLuy().toLocaleString()} điểm</div>
                     <div class="hangThongTin"><strong>Tỷ lệ quy đổi:</strong> 1 điểm = 1.000đ</div>
@@ -624,7 +629,7 @@ function xuLyMucMenu(action) {
             break;
 
         case "hoTro":
-            moPopupMenu("Hỗ trợ / Liên hệ", `
+            moKhungMenu("Hỗ trợ / Liên hệ", `
                 <div class="bangThongTin">
                     <div class="hangThongTin"><strong>Hotline:</strong> 1900 1234</div>
                     <div class="hangThongTin"><strong>Email:</strong> hotro@nhathuocbichphuong.vn</div>
@@ -646,37 +651,37 @@ cacMucMenu.forEach(function (muc) {
     });
 });
 
-if (dongPopupYeuThichButton) {
-    dongPopupYeuThichButton.addEventListener("click", function () {
-        dongPopupYeuThich();
+if (dongKhungYeuThichButton) {
+    dongKhungYeuThichButton.addEventListener("click", function () {
+        dongKhungYeuThich();
     });
 }
 
-if (popupYeuThich) {
-    popupYeuThich.addEventListener("click", function (event) {
-        if (event.target === popupYeuThich) {
-            dongPopupYeuThich();
+if (khungYeuThich) {
+    khungYeuThich.addEventListener("click", function (event) {
+        if (event.target === khungYeuThich) {
+            dongKhungYeuThich();
         }
     });
 }
 
-if (popupMenuChucNang) {
-    popupMenuChucNang.addEventListener("click", function (event) {
-        if (event.target === popupMenuChucNang) {
-            dongPopupMenu();
+if (khungMenuChucNang) {
+    khungMenuChucNang.addEventListener("click", function (event) {
+        if (event.target === khungMenuChucNang) {
+            dongKhungMenu();
         }
     });
 }
 
-if (dongPopupMenuChucNang) {
-    dongPopupMenuChucNang.addEventListener("click", function () {
-        dongPopupMenu();
+if (dongMenuChucNang) {
+    dongMenuChucNang.addEventListener("click", function () {
+        dongKhungMenu();
     });
 }
 
-if (noiDungPopupYeuThich) {
-    noiDungPopupYeuThich.addEventListener("click", function (event) {
-        if (event.target.classList.contains("nutBoYeuThichPopup")) {
+if (noiDungKhungYeuThich) {
+    noiDungKhungYeuThich.addEventListener("click", function (event) {
+        if (event.target.classList.contains("nutBoYeuThichKhung")) {
             const tenSanPham = event.target.dataset.ten;
             const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
             const viTri = yeuThich.indexOf(tenSanPham);
@@ -685,13 +690,13 @@ if (noiDungPopupYeuThich) {
                 yeuThich.splice(viTri, 1);
                 localStorage.setItem("sanPhamYeuThich", JSON.stringify(yeuThich));
                 capNhatYeuThich();
-                renderPopupYeuThich();
+                hienThiKhungYeuThich();
                 vedanhsach(danhSach);
                 hienThiThongBao(`Đã bỏ ${tenSanPham} khỏi yêu thích.`, "info");
             }
         }
 
-        if (event.target.classList.contains("nutThemGioPopup")) {
+        if (event.target.classList.contains("nutThemGioYeuThich")) {
             const tenSanPham = event.target.dataset.ten;
             const giaSanPham = Number(event.target.dataset.gia);
             const tonKhoGoc = Number(event.target.dataset.tonkho);
@@ -1011,10 +1016,10 @@ nutGioHangIcon.addEventListener(
     "click",
     function (event) {
         event.stopPropagation();
-        if (panelGioHang.style.display === "block") {
-            panelGioHang.style.display = "none";
+        if (khungGioHang.style.display === "block") {
+            khungGioHang.style.display = "none";
         } else {
-            panelGioHang.style.display = "block";
+            khungGioHang.style.display = "block";
         }
     });
 
