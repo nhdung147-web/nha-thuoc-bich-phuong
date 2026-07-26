@@ -20,6 +20,18 @@ const danhSach = [
     { ten: "Khẩu trang y tế", gia: 45000, anh: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS__TAgJKXKp5Gf4i2a_hLnChSQaNlxp5K2enXp7i6a_JQNLUO1rwiCBVk&s=10", tonkho: 50, chitiet: "Khẩu trang y tế 4 lớp, kháng khuẩn, hộp 50 cái.", danhMuc: "dụng cụ y tế", nhomLon: "Dụng cụ y tế" }
 ];
 
+function taiKhoanHienTai() {
+    if (localStorage.getItem("daDangNhap") === "true") {
+        return localStorage.getItem("tenTaiKhoanHienTai");
+    }
+    return null;
+}
+
+function khoaTheoTaiKhoan(tenKhoa) {
+    const tk = taiKhoanHienTai();
+    return tk ? `${tenKhoa}_${tk}` : tenKhoa;
+}
+
 const oDanhSach = document.querySelector("#dsSanPham");
 const khungYeuThich = document.querySelector("#khungYeuThich");
 const noiDungKhungYeuThich = document.querySelector("#noiDungKhungYeuThich");
@@ -44,7 +56,7 @@ function capNhatYeuThich() {
 }
 
 function hienThiKhungYeuThich() {
-    const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+    const yeuThich = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("sanPhamYeuThich"))) || [];
 
     if (!noiDungKhungYeuThich) {
         return;
@@ -111,7 +123,7 @@ function themVaoGioHangTuSanPham(tenSanPham, giaSanPham, tonKhoGoc) {
 
 function vedanhsach(mang) {
     oDanhSach.innerHTML = "";
-    const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+    const yeuThich = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("sanPhamYeuThich"))) || [];
 
     mang.forEach(function (sp) {
         const daYeuThich = yeuThich.includes(sp.ten);
@@ -169,7 +181,7 @@ function layPhuongThucThanhToanText() {
 
 let gioHang = {};
 try {
-    gioHang = JSON.parse(localStorage.getItem("gioHang")) || {};
+    gioHang = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("gioHang"))) || {};
 } catch (error) {
     gioHang = {};
 }
@@ -191,7 +203,7 @@ let soTienGiam = 0;
 
 function layDiemTichLuy() {
     try {
-        return Number(localStorage.getItem("diemTichLuy")) || 0;
+        return Number(localStorage.getItem(khoaTheoTaiKhoan("diemTichLuy"))) || 0;
     } catch (error) {
         return 0;
     }
@@ -281,7 +293,7 @@ oDanhSach.addEventListener("click", function (e) {
 
     if (e.target.classList.contains("nutYeuThich")) {
         const tenSanPham = e.target.dataset.ten;
-        const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+        const yeuThich = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("sanPhamYeuThich"))) || [];
         const viTri = yeuThich.indexOf(tenSanPham);
 
         if (viTri === -1) {
@@ -292,7 +304,7 @@ oDanhSach.addEventListener("click", function (e) {
             hienThiThongBao(`Đã bỏ ${tenSanPham} khỏi yêu thích.`, "info");
         }
 
-        localStorage.setItem("sanPhamYeuThich", JSON.stringify(yeuThich));
+        localStorage.setItem(khoaTheoTaiKhoan("sanPhamYeuThich"), JSON.stringify(yeuThich));
         capNhatYeuThich();
         hienThiKhungYeuThich();
         vedanhsach(danhSach);
@@ -361,7 +373,7 @@ function capNhatThongTinCaNhan(duLieuMoi = {}) {
 
     let thongTinHienTai = {};
     try {
-        thongTinHienTai = JSON.parse(localStorage.getItem("thongTinCaNhan")) || {};
+        thongTinHienTai = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("thongTinCaNhan"))) || {};
     } catch (error) {
         thongTinHienTai = {};
     }
@@ -372,44 +384,51 @@ function capNhatThongTinCaNhan(duLieuMoi = {}) {
         ...duLieuMoi
     };
 
-    localStorage.setItem("thongTinCaNhan", JSON.stringify(thongTinMoi));
+    localStorage.setItem(khoaTheoTaiKhoan("thongTinCaNhan"), JSON.stringify(thongTinMoi));
     return thongTinMoi;
 }
 
 function capNhatNutDangNhap() {
-
     if (localStorage.getItem("daDangNhap") === "true") {
         nutDangNhap.textContent = "Đăng xuất";
     } else {
         nutDangNhap.textContent = "Đăng nhập";
     }
-
 }
 
 capNhatNutDangNhap();
+
+function taiLaiDuLieuCaNhan() {
+    gioHang = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("gioHang"))) || {};
+    maGiamGiaHienTai = "";
+    if (maGiamGiaInput) {
+        maGiamGiaInput.value = "";
+    }
+    capNhatGioHang();
+    capNhatHienThiTichDiem();
+    taiThongTinGiaoHang();
+    capNhatLichSuDonHang();
+    vedanhsach(danhSach);
+}
 
 nutDangNhap.addEventListener("click", function (event) {
     event.stopPropagation();
 
     if (localStorage.getItem("daDangNhap") === "true") {
-
         const xacNhan = confirm("Bạn có muốn đăng xuất không?");
 
         if (xacNhan) {
-
             localStorage.removeItem("daDangNhap");
+            localStorage.removeItem("tenTaiKhoanHienTai");
 
+            taiLaiDuLieuCaNhan();
             capNhatNutDangNhap();
-
             hienThiThongBao("Đã đăng xuất", "info");
-
         }
-
     } else {
         containerDangNhap.classList.remove("active");
         containerDangNhap.style.display = "block";
     }
-
 });
 
 const cacNutHienThiMK = document.querySelectorAll(".nutHienThiMK");
@@ -449,7 +468,11 @@ nutXacNhanDangNhap2.addEventListener("click", function () {
 
     if (taiKhoan === "Nguyenhuydung147" && matKhau === "Nguyenhuydung147") {
         localStorage.setItem("daDangNhap", "true");
+        localStorage.setItem("tenTaiKhoanHienTai", taiKhoan);
+
+        taiLaiDuLieuCaNhan();
         capNhatThongTinCaNhan({ hoTen: taiKhoan });
+
         hienThiThongBao("Đăng nhập thành công! Xin chào " + taiKhoan, "success");
         containerDangNhap.style.display = "none";
         document.querySelector("#dnTaiKhoan").value = "";
@@ -475,14 +498,10 @@ nutXacNhanDangKy.addEventListener("click", function () {
 });
 
 cacNutMangXaHoi.forEach(function (nut) {
-
     nut.addEventListener("click", function () {
-
         const tenMang = nut.dataset.mang;
         hienThiThongBao("Đăng nhập bằng " + tenMang + "", "info");
-
     });
-
 });
 
 const cacNutMoMenu = document.querySelectorAll(".nutMoMenu");
@@ -576,23 +595,68 @@ function dongKhungMenu() {
     }
 }
 
+function daDangNhapChua() {
+    return localStorage.getItem("daDangNhap") === "true";
+}
+
+function yeuCauDangNhap(tenChucNang) {
+    moKhungMenu("Cần đăng nhập", `
+        <div class="bangThongTin">
+            <div class="hangThongTin">Bạn cần đăng nhập để xem "${tenChucNang}".</div>
+        </div>
+        <div class="hangNutYeuCauDangNhap">
+            <button type="button" id="nutTiepTucDangNhap" class="nutKhungMenu">Đăng nhập ngay</button>
+        </div>
+    `);
+}
+
 function xuLyMucMenu(action) {
+
+    const canDangNhap = ["thongTin", "yeuThich", "tichDiem", "donHang"];
+
+    if (canDangNhap.includes(action) && !daDangNhapChua()) {
+        const tenHienThi = {
+            thongTin: "Thông tin cá nhân",
+            yeuThich: "Sản phẩm yêu thích",
+            tichDiem: "Tích điểm",
+            donHang: "Đơn hàng của tôi"
+        };
+        yeuCauDangNhap(tenHienThi[action]);
+        return;
+    }
+
     switch (action) {
         case "donHang":
-            const khungDonHang = document.querySelector(".khuVucLichSuDonHang");
-            if (khungDonHang) {
-                khungDonHang.scrollIntoView({ behavior: "smooth", block: "start" });
-                khungDonHang.style.boxShadow = "0 0 0 3px rgba(15, 108, 189, 0.16)";
-                setTimeout(function () {
-                    khungDonHang.style.boxShadow = "";
-                }, 1600);
+            let donHangDaCoHienThi = [];
+            try {
+                donHangDaCoHienThi = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("lichSuDonHang"))) || [];
+            } catch (error) {
+                donHangDaCoHienThi = [];
             }
-            moKhungMenu("Đơn hàng của tôi", `
-                <div class="bangThongTin">
-                    <div class="hangThongTin">Lịch sử đơn hàng của bạn đang hiển thị ở phần bên dưới.</div>
-                    <div class="hangThongTin">Bạn có thể xem lại thông tin, ngày đặt và tình trạng đơn hàng tại đây.</div>
+
+            if (donHangDaCoHienThi.length === 0) {
+                moKhungMenu("Đơn hàng của tôi", `
+            <div class="bangThongTin">
+                <div class="hangThongTin">Bạn chưa có đơn hàng nào.</div>
+            </div>
+        `);
+            } else {
+                const htmlDonHang = donHangDaCoHienThi.slice(0, 10).map(function (donHang) {
+                    return `
+                <div class="hangThongTin">
+                    <strong>${donHang.thoiGian}</strong><br>
+                    Sản phẩm: ${donHang.sanPham.join(", ")}<br>
+                    Tổng tiền: ${donHang.tongTien.toLocaleString()}đ
                 </div>
-            `);
+            `;
+                }).join("");
+
+                moKhungMenu("Đơn hàng của tôi", `
+            <div class="bangThongTin">
+                ${htmlDonHang}
+            </div>
+        `);
+            }
             break;
 
         case "thongTin":
@@ -673,6 +737,16 @@ if (khungMenuChucNang) {
     });
 }
 
+noiDungMenuChucNang.addEventListener("click", function (e) {
+    if (e.target.id === "nutTiepTucDangNhap") {
+        e.stopPropagation();
+        dongKhungMenu();
+        menuBaGach.style.display = "none";
+        containerDangNhap.classList.remove("active");
+        containerDangNhap.style.display = "block";
+    }
+});
+
 if (dongMenuChucNang) {
     dongMenuChucNang.addEventListener("click", function () {
         dongKhungMenu();
@@ -683,12 +757,12 @@ if (noiDungKhungYeuThich) {
     noiDungKhungYeuThich.addEventListener("click", function (event) {
         if (event.target.classList.contains("nutBoYeuThichKhung")) {
             const tenSanPham = event.target.dataset.ten;
-            const yeuThich = JSON.parse(localStorage.getItem("sanPhamYeuThich")) || [];
+            const yeuThich = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("sanPhamYeuThich"))) || [];
             const viTri = yeuThich.indexOf(tenSanPham);
 
             if (viTri !== -1) {
                 yeuThich.splice(viTri, 1);
-                localStorage.setItem("sanPhamYeuThich", JSON.stringify(yeuThich));
+                localStorage.setItem(khoaTheoTaiKhoan("sanPhamYeuThich"), JSON.stringify(yeuThich));
                 capNhatYeuThich();
                 hienThiKhungYeuThich();
                 vedanhsach(danhSach);
@@ -721,7 +795,6 @@ dauBaGach.addEventListener("click", function (event) {
 });
 
 document.addEventListener("click", function (suKien) {
-
     if (
         !menuBaGach.contains(suKien.target) &&
         suKien.target !== dauBaGach
@@ -740,10 +813,10 @@ function layThongTinGiaoHang() {
 
 function taiThongTinGiaoHang() {
     try {
-        const duLieu = JSON.parse(localStorage.getItem("thongTinGiaoHang")) || {};
-        if (duLieu.hoTen) document.querySelector("#hoTenNguoiNhan").value = duLieu.hoTen;
-        if (duLieu.soDienThoai) document.querySelector("#soDienThoai").value = duLieu.soDienThoai;
-        if (duLieu.diaChi) document.querySelector("#diaChiGiaoHang").value = duLieu.diaChi;
+        const duLieu = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("thongTinGiaoHang"))) || {};
+        document.querySelector("#hoTenNguoiNhan").value = duLieu.hoTen || "";
+        document.querySelector("#soDienThoai").value = duLieu.soDienThoai || "";
+        document.querySelector("#diaChiGiaoHang").value = duLieu.diaChi || "";
         if (duLieu.hoTen || duLieu.soDienThoai || duLieu.diaChi) {
             nutThongTinGiaoHang.textContent = "Thông tin giao hàng ✓";
         } else {
@@ -756,7 +829,7 @@ function taiThongTinGiaoHang() {
 
 function luuThongTinGiaoHang() {
     const thongTin = layThongTinGiaoHang();
-    localStorage.setItem("thongTinGiaoHang", JSON.stringify(thongTin));
+    localStorage.setItem(khoaTheoTaiKhoan("thongTinGiaoHang"), JSON.stringify(thongTin));
     if (thongTin.hoTen || thongTin.soDienThoai || thongTin.diaChi) {
         nutThongTinGiaoHang.textContent = "Thông tin giao hàng ✓";
     }
@@ -822,7 +895,7 @@ function capNhatGioHang() {
     soLuong.textContent = tongSoLuong;
     tongTienHienThi.textContent = tongTien.toLocaleString();
     capNhatGiamGiaHienThi();
-    localStorage.setItem("gioHang", JSON.stringify(gioHang));
+    localStorage.setItem(khoaTheoTaiKhoan("gioHang"), JSON.stringify(gioHang));
 }
 
 chiTietGioHang.addEventListener("click", function (e) {
@@ -958,7 +1031,7 @@ nutThanhToan.addEventListener("click", function () {
             diemDaDung = diemToiDa;
             tienGiamDiem = diemDaDung * 1000;
             tongTienSauGiam = Math.max(0, tongTienSauGiam - tienGiamDiem);
-            localStorage.setItem("diemTichLuy", String(diemCo - diemDaDung));
+            localStorage.setItem(khoaTheoTaiKhoan("diemTichLuy"), String(diemCo - diemDaDung));
             hienThiThongBao(`Đã dùng ${diemDaDung} điểm, giảm ${tienGiamDiem.toLocaleString()}đ.`, "success");
         } else {
             hienThiThongBao("Bạn không đủ điểm để dùng.", "info");
@@ -967,11 +1040,10 @@ nutThanhToan.addEventListener("click", function () {
 
     const diemMoi = Math.floor(tongTienSauGiam / 10000);
     const diemHienTai = layDiemTichLuy();
-    localStorage.setItem("diemTichLuy", String(diemHienTai + diemMoi));
+    localStorage.setItem(khoaTheoTaiKhoan("diemTichLuy"), String(diemHienTai + diemMoi));
 
     hoaDon += `Thông tin giao hàng:\nHọ tên: ${thongTinGiaoHang.hoTen}\nSĐT: ${thongTinGiaoHang.soDienThoai}\nĐịa chỉ: ${thongTinGiaoHang.diaChi}\n\nPhương thức: ${layPhuongThucThanhToanText()}\nTổng tiền: ${tongTienSauGiam.toLocaleString()}đ\nCảm ơn quý khách!`;
 
-    const lichSuDonHang = document.querySelector("#lichSuDonHang");
     const donHangMoi = {
         thoiGian: new Date().toLocaleString("vi-VN"),
         tongTien: tongTienSauGiam,
@@ -982,13 +1054,13 @@ nutThanhToan.addEventListener("click", function () {
 
     let donHangDaCo = [];
     try {
-        donHangDaCo = JSON.parse(localStorage.getItem("lichSuDonHang")) || [];
+        donHangDaCo = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("lichSuDonHang"))) || [];
     } catch (error) {
         donHangDaCo = [];
     }
 
     donHangDaCo.unshift(donHangMoi);
-    localStorage.setItem("lichSuDonHang", JSON.stringify(donHangDaCo));
+    localStorage.setItem(khoaTheoTaiKhoan("lichSuDonHang"), JSON.stringify(donHangDaCo));
 
     capNhatHienThiTichDiem();
     hienThiThongBao("Đặt hàng thành công! Đơn hàng đã được lưu vào lịch sử.", "success");
@@ -1032,7 +1104,7 @@ function capNhatLichSuDonHang() {
     let donHangDaCo = [];
 
     try {
-        donHangDaCo = JSON.parse(localStorage.getItem("lichSuDonHang")) || [];
+        donHangDaCo = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("lichSuDonHang"))) || [];
     } catch (error) {
         donHangDaCo = [];
     }
