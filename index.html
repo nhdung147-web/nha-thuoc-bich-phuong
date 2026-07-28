@@ -16,7 +16,7 @@
             <button id="dauBaGach">☰</button>
 
             <div id="menuBaGach" style="display:none;">
-                <div class="mucMenu mucDonHang" data-action="donHang">📋 Đơn hàng của tôi</div>
+                <div class="mucMenu" id="mucDonHang" data-action="donHang">📋 Đơn hàng của tôi</div>
                 <div class="mucMenu mucThongTin" data-action="thongTin">👤 Thông tin cá nhân</div>
                 <div class="mucMenu mucYeuThich" id="mucSanPhamYeuThich" data-action="yeuThich">❤️ Lịch sử yêu thích
                 </div>
@@ -141,12 +141,121 @@
                     <p>Quý khách có thể tra cứu thông tin cá nhân và theo dõi các ưu đãi hấp dẫn ngay tại đây.</p>
                 </div>
                 <div class="hoSoStats">
-                    <div class="statItem">⚡ Giao hàng nhanh trong ngày</div>
+                    <button type="button" class="statItem statItemNut" id="nutGiaoHangNhanh">⚡ Giao hàng nhanh trong
+                        ngày</button>
                     <div class="statItem">🩺 Hỗ trợ tư vấn thuốc</div>
                     <div class="statItem">🎁 Ưu đãi dành riêng cho thành viên</div>
                 </div>
             </div>
         </section>
+
+        <div id="hopThoaiGiaoHang" class="hopThoaiGiaoHang">
+
+            <div class="nenMo"></div>
+            <div class="cuaSoGiaoHang">
+                <div class="tieuDeGiaoHang">
+                    <div>
+                        <h2>🚚 Giao hàng nhanh</h2>
+                        <p>Kiểm tra địa chỉ của bạn có thuộc khu vực giao hàng hay không.</p>
+                    </div>
+                    <button id="dongHopThoaiGiaoHang">
+                        ✕
+                    </button>
+                </div>
+
+                <div class="noiDungGiaoHang">
+
+                    <div class="cotTrai">
+
+                        <h3>Thông tin giao hàng</h3>
+                        <label>Tỉnh / Thành phố</label>
+
+                        <select id="tinhThanh">
+                            <option value="">-- Chọn --</option>
+                            <option>Đồng Nai</option>
+                        </select>
+
+                        <label>Quận / Huyện</label>
+
+                        <select id="quanHuyen">
+                            <option value="">-- Chọn --</option>
+                            <option>Vĩnh Cửu</option>
+                        </select>
+
+                        <label>Xã / Thị trấn</label>
+
+                        <select id="xaPhuong">
+                            <option value="">-- Chọn --</option>
+                            <option>Vĩnh An</option>
+                            <option>Tân Bình</option>
+                            <option>Thạnh Phú</option>
+                            <option>Mã Đà</option>
+                            <option>Hiếu Liêm</option>
+                            <option>Bình Lợi</option>
+                            <option>Biên Hòa</option>
+                            <option>Trảng Bom</option>
+                        </select>
+
+                        <label>Địa chỉ chi tiết</label>
+
+                        <input id="diaChiChiTiet" type="text" placeholder="Ví dụ: 110 Quang Trung, Tổ 9 KP8">
+                        <label>Số điện thoại</label>
+
+                        <input id="soDienThoaiGiaoHang" type="text" placeholder="09xxxxxxxx">
+                        <button id="kiemTraKhuVuc">
+                            🔍 Kiểm tra khu vực
+                        </button>
+                    </div>
+
+                    <div class="cotPhai">
+                        <div class="theThongTin">
+                            <h3>Kết quả</h3>
+                            <div id="ketQuaKhuVuc">
+                                <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" width="80">
+                                <p>
+                                    Nhập địa chỉ rồi bấm
+                                    <b>Kiểm tra khu vực</b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="theThongTin">
+                            <h3>Thông tin cửa hàng</h3>
+                            <table class="bangThongTin">
+                                <tr>
+                                    <td>Địa chỉ</td>
+                                    <td>
+                                        110 Quang Trung<br>
+                                        KP8, TT Vĩnh An<br>
+                                        Vĩnh Cửu, Đồng Nai
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Giờ mở cửa</td>
+                                    <td>
+                                        07:00 - 21:00
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Hotline</td>
+                                    <td>
+                                        0915559667
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chanHopThoai">
+                    <button id="xacNhanDatHang">
+                        ✅ Tiếp tục đặt hàng
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div class="khuVucGioHang">
             <button id="nutGioHangIcon">🛒 Giỏ hàng (<span id="soLuong">0</span>)</button>
@@ -179,8 +288,8 @@
                     <p id="thongTinDiemThanhToan" class="thongBaoMaGiamGia">Điểm hiện có: 0 điểm (1 điểm = 1.000đ)</p>
                 </div>
 
-                <label for="phuongThucThanhToan">Phương thức thanh toán:</label>
-                <select id="phuongThucThanhToan">
+                <label for="ophuongThucThanhToan">Phương thức thanh toán:</label>
+                <select id="ophuongThucThanhToan">
                     <option value="tienMat">Tiền mặt</option>
                     <option value="theNganHang">Thẻ ngân hàng</option>
                     <option value="chuyenKhoan">Chuyển khoản</option>

@@ -363,7 +363,7 @@ const dongDiem = document.querySelector("#dongDiem");
 function capNhatThongTinCaNhan(duLieuMoi = {}) {
     const thongTinMacDinh = {
         hoTen: "Nguyễn Huy Dung",
-        soDienThoai: "0909 123 456",
+        soDienThoai: "070 1516 1407",
         email: "dung.nguyen@nhathuocbichphuong.vn",
         ngaySinh: "14/07/1995",
         diaChi: "Quang Trung / 110 Tổ 9, KP 8, Trị An, Đồng Nai",
@@ -1142,3 +1142,186 @@ if (thongBaoStripItems.length > 0) {
 capNhatGioHang();
 capNhatYeuThich();
 capNhatLichSuDonHang();
+
+const hopThoaiGiaoHang = document.querySelector("#hopThoaiGiaoHang");
+const dongHopThoaiGiaoHang = document.querySelector("#dongHopThoaiGiaoHang");
+const nenMo = document.querySelector(".nenMo");
+const nutGiaoHangNhanh = document.querySelector("#nutGiaoHangNhanh");
+const nutXacNhanDatHang = document.querySelector("#xacNhanDatHang");
+const ketQuaKhuVuc = document.querySelector("#ketQuaKhuVuc");
+
+nutGiaoHangNhanh.addEventListener("click", function () {
+    hopThoaiGiaoHang.style.display = "flex";
+});
+
+dongHopThoaiGiaoHang.addEventListener("click", function () {
+    hopThoaiGiaoHang.style.display = "none";
+});
+
+nenMo.addEventListener("click", function () {
+    hopThoaiGiaoHang.style.display = "none";
+});
+
+document.addEventListener("keydown", function (e) {
+
+    if (e.key === "Escape") {
+        hopThoaiGiaoHang.style.display = "none";
+    }
+});
+
+nutXacNhanDatHang.disabled = true;
+
+
+ketQuaKhuVuc.innerHTML = `
+<div class="theKetQua">
+<h4>🚚 Kiểm tra giao hàng</h4>
+<p>Nhập địa chỉ bên trái rồi nhấn<b>Kiểm tra khu vực</b></p>
+
+</div>
+
+`;
+
+const tinhThanh = document.querySelector("#tinhThanh");
+const quanHuyen = document.querySelector("#quanHuyen");
+const xaPhuong = document.querySelector("#xaPhuong");
+const diaChiChiTiet = document.querySelector("#diaChiChiTiet");
+const soDienThoaiGiaoHang = document.querySelector("#soDienThoaiGiaoHang");
+const kiemTraKhuVuc = document.querySelector("#kiemTraKhuVuc");
+
+const khuVucGiaoNhanh = [
+    "Vĩnh An",
+    "Tân Bình",
+    "Hiếu Liêm",
+    "Mã Đà",
+    "Bình Lợi",
+    "Thạnh Phú"
+];
+
+const khuVucLanCan = [
+    "Biên Hòa",
+    "Trảng Bom",
+    "Định Quán",
+    "Long Thành"
+];
+
+kiemTraKhuVuc.addEventListener("click", function () {
+
+    if (tinhThanh.value === "") {
+        alert("Vui lòng chọn tỉnh/thành.");
+        return;
+    }
+
+    if (quanHuyen.value === "") {
+        alert("Vui lòng chọn huyện.");
+        return;
+    }
+
+    if (xaPhuong.value === "") {
+        alert("Vui lòng chọn xã.");
+        return;
+    }
+
+    if (diaChiChiTiet.value.trim() === "") {
+        alert("Vui lòng nhập địa chỉ.");
+        return;
+    }
+
+    if (soDienThoaiGiaoHang.value.trim() === "") {
+        alert("Vui lòng nhập số điện thoại.");
+        return;
+    }
+
+    if (khuVucGiaoNhanh.includes(xaPhuong.value)) {
+
+        ketQuaKhuVuc.innerHTML = `
+
+        <div class="theKetQua">
+
+            <h4 class="thanhCong">✅ Giao hàng nhanh</h4>
+
+            <p><b>Khu vực:</b> ${xaPhuong.value}</p>
+            <p><b>Khoảng cách:</b> Dưới 10 km</p>
+            <p><b>Thời gian:</b> 20 - 45 phút</p>
+            <p><b>Phí giao:</b> 15.000đ</p>
+            <p><b>Trạng thái:</b> Có thể giao ngay hôm nay.</p>
+        </div>
+
+        `;
+
+        nutXacNhanDatHang.disabled = false;
+        return;
+    }
+
+    if (khuVucLanCan.includes(xaPhuong.value)) {
+        ketQuaKhuVuc.innerHTML = `
+        <div class="theKetQua">
+
+            <h4 class="canhBao">⚠ Khu vực lân cận</h4>
+
+            <p><b>Khu vực:</b> ${xaPhuong.value}</p>
+            <p><b>Khoảng cách:</b> 10 - 30 km</p>
+            <p><b>Thời gian:</b> 60 - 120 phút</p>
+            <p><b>Phí giao:</b> 30.000đ</p>
+            <p><b>Trạng thái:</b> Có thể giao trong ngày.</p>
+        </div>
+
+        `;
+
+        nutXacNhanDatHang.disabled = false;
+        return;
+    }
+
+    ketQuaKhuVuc.innerHTML = `
+
+    <div class="theKetQua">
+
+        <h4 class="thatBai"> ❌ Ngoài phạm vi giao hàng</h4>
+        
+        <p><b>Khu vực:</b> ${xaPhuong.value}</p>
+        <p>Địa chỉ của bạn hiện chưa nằm trong phạm vi giao nhanh.</p>
+        <p>Nhà thuốc sẽ liên hệ để tư vấn phương án vận chuyển phù hợp.</p>
+    </div>
+
+    `;
+
+    nutXacNhanDatHang.disabled = true;
+});
+
+nutXacNhanDatHang.addEventListener("click", function () {
+    if (nutXacNhanDatHang.disabled) {
+        hienThiThongBao("Vui lòng kiểm tra khu vực giao hàng trước.", "error");
+        return;
+    }
+    if (Object.keys(gioHang).length === 0) {
+        hienThiThongBao("Giỏ hàng đang trống.", "error");
+        return;
+    }
+
+    const tongTienHienTai = tinhTongTien();
+    const maDonHang = "DH" + Date.now();
+
+    const donHangMoi = {
+        thoiGian: new Date().toLocaleString("vi-VN"),
+        tongTien: tongTienHienTai,
+        sanPham: Object.keys(gioHang).map(function (ten) {
+            return `${ten} x${gioHang[ten].soLuong}`;
+        }),
+        diaChi: `${diaChiChiTiet.value}, ${xaPhuong.value}, ${quanHuyen.value}, ${tinhThanh.value}`,
+        thanhToan: layPhuongThucThanhToanText()
+    };
+
+    let donHangDaCo = [];
+    try {
+        donHangDaCo = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("lichSuDonHang"))) || [];
+    } catch (error) {
+        donHangDaCo = [];
+    }
+    donHangDaCo.unshift(donHangMoi);
+    localStorage.setItem(khoaTheoTaiKhoan("lichSuDonHang"), JSON.stringify(donHangDaCo));
+
+    hienThiThongBao("🎉 Đặt hàng thành công! Mã đơn: " + maDonHang, "success");
+
+    gioHang = {};
+    capNhatGioHang();
+    hopThoaiGiaoHang.style.display = "none";
+});

@@ -1005,6 +1005,18 @@ button:disabled {
     font-size: 14.5px;
 }
 
+.statItemNut {
+    cursor: pointer;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.statItemNut:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-2px);
+}
+
 /*  THÔNG BÁO NHANH  */
 .thong-bao {
     position: fixed;
@@ -1462,4 +1474,304 @@ button:disabled {
         flex: 1;
         min-width: 140px;
     }
+}
+
+.hopThoaiGiaoHang {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.nenMo {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(4px);
+}
+
+.cuaSoGiaoHang {
+    position: relative;
+    width: 1100px;
+    max-width: 95%;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+    animation: hienHop .25s ease;
+}
+
+@keyframes hienHop {
+
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.tieuDeGiaoHang {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 35px;
+    color: white;
+    background: linear-gradient(135deg, #0a6cf1, #00bcd4);
+}
+
+.tieuDeGiaoHang h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.tieuDeGiaoHang p {
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+#dongHopThoaiGiaoHang {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    color: #333;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#dongHopThoaiGiaoHang:hover {
+    transform: rotate(90deg);
+}
+
+.noiDungGiaoHang {
+    display: flex;
+    gap: 35px;
+    padding: 35px;
+}
+
+.cotTrai {
+    flex: 1;
+}
+
+.cotPhai {
+    width: 360px;
+}
+
+.cotTrai h3,
+.cotPhai h3 {
+    color: #0a6cf1;
+    margin-top: 0;
+}
+
+.cotTrai label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.cotTrai input,
+.cotTrai select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: .2s;
+}
+
+.cotTrai input:focus,
+.cotTrai select:focus {
+    border-color: #0a6cf1;
+    outline: none;
+    box-shadow: 0 0 8px rgba(10, 108, 241, .2);
+}
+
+#kiemTraKhuVuc {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+    background: #0a6cf1;
+    color: white;
+    cursor: pointer;
+}
+
+#kiemTraKhuVuc:hover {
+    background: #0054d1;
+}
+
+.theThongTin {
+    background: #f8fbff;
+    border: 1px solid #dde9ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#ketQuaKhuVuc {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+}
+
+#ketQuaKhuVuc img {
+    margin-bottom: 15px;
+}
+
+.bangThongTin {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bangThongTin td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+
+.bangThongTin td:first-child {
+    font-weight: bold;
+    width: 110px;
+}
+
+.chanHopThoai {
+    padding: 20px 35px;
+    background: #f6f6f6;
+    text-align: right;
+}
+
+#xacNhanDatHang {
+    background: #00b14f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 30px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+#xacNhanDatHang:hover {
+    background: #009744;
+}
+
+.thanhCong {
+    color: #0a8d39;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.canhBao {
+    color: #ff9800;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.thatBai {
+    color: #e53935;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.theKetQua {
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 15px;
+    text-align: left;
+    background: white;
+    border: 1px solid #ddd;
+}
+
+.theKetQua h4 {
+    margin-top: 0;
+    color: #0a6cf1;
+}
+
+.theKetQua p {
+    margin: 8px 0;
+}
+
+@media(max-width:900px) {
+
+    .noiDungGiaoHang {
+        flex-direction: column;
+    }
+
+    .cotPhai {
+        width: 100%;
+    }
+
+    .cuaSoGiaoHang {
+        width: 96%;
+    }
+
+    .tieuDeGiaoHang {
+        padding: 20px;
+    }
+}
+
+.donHangItem {
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+    margin-bottom: 18px;
+
+}
+
+.donHangHeader {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+
+}
+
+.trangThaiDon {
+
+    background: #28a745;
+
+    color: white;
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+}
+
+.donHangItem ul {
+
+    margin-top: 10px;
+
+    padding-left: 20px;
+
+}
+
+.donHangItem li {
+
+    margin: 5px 0;
+
 }
