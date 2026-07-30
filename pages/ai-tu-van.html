@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tư vấn AI - Nhà thuốc Bích Phượng</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="trangTuVanAI">
+
+    <header class="headerTuVan">
+        <a href="../index.html" class="logoTuVan">
+            <img src="../linh-vat-bich-phuong-v2.svg" alt="Logo" class="logoAnhTuVan">
+            <div>
+                <h1>Nhà thuốc Bích Phượng</h1>
+                <p>🤖 AI Medical Assistant</p>
+            </div>
+        </a>
+        <a href="../index.html" class="nutVeTrangChu">← Về trang chủ</a>
+    </header>
+
+    <div class="khungTuVanChinh">
+
+        <aside class="menuTuVanTrai">
+            <h3>Lịch sử trò chuyện</h3>
+            <div class="mucLichSuChat active">💬 Cuộc trò chuyện mới</div>
+
+            <h3>Của bạn</h3>
+            <div class="mucCongCu" data-cong-cu="thuocDaTuVan">📋 Thuốc đã tư vấn</div>
+            <div class="mucCongCu" data-cong-cu="thuocYeuThich">❤️ Thuốc yêu thích</div>
+            <div class="mucCongCu" data-cong-cu="hoSoSucKhoe">🗂️ Hồ sơ sức khỏe</div>
+        </aside>
+
+        <main class="khungChat">
+
+            <div class="vungTinNhan" id="vungTinNhan">
+                <div class="tinNhan tinNhanAI">
+                    <div class="avatarChat avatarAI">🤖</div>
+                    <div class="noiDungTinNhan">
+                        <div class="bongChat bongChatAI">
+                            Xin chào! Tôi là trợ lý AI của Nhà thuốc Bích Phượng 👋<br><br>
+                            Tôi có thể giúp bạn tra cứu: thành phần, liều dùng, tác dụng phụ, chống chỉ định...<br><br>
+                            Bạn muốn hỏi về loại thuốc nào?
+                        </div>
+                        <span class="thoiGianChat">Bây giờ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dangGoChat" id="dangGoChat" style="display:none;">
+                <div class="avatarChat avatarAI">🤖</div>
+                <div class="bongChat bongChatAI">
+                    <span class="cham"></span><span class="cham"></span><span class="cham"></span>
+                </div>
+            </div>
+
+            <div class="khungNhapChat">
+                <button type="button" class="nutIconChat" id="nutUpload" title="Tải ảnh lên">📷</button>
+                <button type="button" class="nutIconChat" id="nutMicro" title="Ghi âm">🎤</button>
+                <input type="text" id="oNhapChat" placeholder="Hỏi về thuốc bạn muốn tìm hiểu...">
+                <button type="button" id="nutGuiChat">Gửi</button>
+            </div>
+
+            <p class="canhBaoAI">⚠️ Thông tin chỉ mang tính tham khảo, vui lòng tham khảo ý kiến bác sĩ hoặc dược sĩ.
+            </p>
+
+        </main>
+    </div>
+
+    <script src="ai-tu-van.js"></script>
+</body>
+
+</html>

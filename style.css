@@ -39,7 +39,8 @@ h3 {
     font-family: "Lora", serif;
 }
 
-/*  hàng tiêu đề  */
+/*  -----------------------------------------hàng tiêu đề  */
+
 .header {
     background: var(--pine);
     background-image: radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.06) 0, transparent 45%),
@@ -83,7 +84,7 @@ h3 {
     font-size: 15px;
 }
 
-/* phần chính  */
+/*--------------------------------------------- phần chính  */
 .noi-dung-chinh {
     background: var(--white);
     max-width: 1140px;
@@ -99,7 +100,7 @@ p {
     font-size: 16px;
 }
 
-/*  Ô TÌM KIẾM  */
+/* ------------------------------------------ Ô TÌM KIẾM  */
 #oTimKiem {
     padding: 12px 18px;
     width: 100%;
@@ -124,7 +125,7 @@ p {
     box-shadow: 0 0 0 3px rgba(22, 120, 109, 0.15);
 }
 
-/*  ĐĂNG NHẬP (form nhanh)  */
+/* ---------------------------------------------ĐĂNG NHẬP (form nhanh)  */
 #formDangNhap {
     position: fixed;
     top: 50%;
@@ -210,7 +211,7 @@ p {
     background: #0052cc;
 }
 
-/* NÚT DANH MỤC  MENU CHÍNH  */
+/* ------------------------------------------NÚT DANH MỤC  MENU CHÍNH  */
 .danhmuc {
     background: var(--white);
     color: var(--teal);
@@ -295,7 +296,7 @@ p {
     color: var(--white);
 }
 
-/*  DANH SÁCH SẢN PHẨM  */
+/* ---------------------------------------- DANH SÁCH SẢN PHẨM  */
 ol {
     display: flex;
     justify-content: center;
@@ -377,7 +378,7 @@ li img {
     }
 }
 
-/*  NÚT BẤM (chung)  */
+/*  --------------------------------------------NÚT BẤM (chung)  */
 button {
     background: var(--teal);
     color: var(--white);
@@ -697,7 +698,7 @@ button:disabled {
     letter-spacing: 0.06em;
 }
 
-/*   MENU ba gạch */
+/*  ---------------------------------------------------- MENU ba gạch */
 #dauBaGach {
     position: absolute;
     top: 50%;
@@ -858,7 +859,7 @@ button:disabled {
     background: var(--clay);
 }
 
-/* YÊU THÍCH  */
+/* ------------------------------------------------YÊU THÍCH  */
 .khungYeuThich {
     position: fixed;
     inset: 0;
@@ -1061,7 +1062,7 @@ button:disabled {
     }
 }
 
-/*  ĐĂNG NHẬP  ĐĂNG KÝ TRƯỢT  */
+/*  --------------------------------------ĐĂNG NHẬP  ĐĂNG KÝ TRƯỢT  */
 .containerDangNhap {
     position: fixed;
     top: 50%;
@@ -1284,7 +1285,7 @@ button:disabled {
     border-bottom: none;
 }
 
-/*  RESPONSIVE */
+/*  -------------------------------------phản hồi nhanh */
 @media (max-width: 700px) {
     body {
         font-size: 15px;
@@ -1495,8 +1496,8 @@ button:disabled {
 
 .cuaSoGiaoHang {
     position: relative;
-    width: 1100px;
-    max-width: 95%;
+    width: 95%;
+    max-width: 1100px;
     background: #fff;
     border-radius: 18px;
     overflow: hidden;
@@ -1558,11 +1559,14 @@ button:disabled {
 }
 
 .cotTrai {
-    flex: 1;
+    flex: 1 1 60%;
+    min-width: 0;
 }
 
 .cotPhai {
-    width: 360px;
+    flex: 1 1 40%;
+    width: auto;
+    min-width: 280px;
 }
 
 .cotTrai h3,
@@ -1721,57 +1725,524 @@ button:disabled {
 }
 
 .donHangItem {
-
     background: #fff;
-
     border: 1px solid #ddd;
-
     border-radius: 12px;
-
     padding: 15px;
-
     margin-bottom: 18px;
-
 }
 
 .donHangHeader {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 10px;
-
 }
 
 .trangThaiDon {
-
     background: #28a745;
-
     color: white;
-
     padding: 6px 12px;
-
     border-radius: 30px;
-
     font-size: 13px;
-
     font-weight: bold;
-
 }
 
 .donHangItem ul {
-
     margin-top: 10px;
-
     padding-left: 20px;
-
 }
 
 .donHangItem li {
-
     margin: 5px 0;
+}
 
+/* ------------------------------------------ TRANG TƯ VẤN AI  */
+.trangTuVanAI {
+    background: var(--mint);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.headerTuVan {
+    background: var(--pine);
+    color: var(--white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-md);
+    flex-shrink: 0;
+}
+
+.logoTuVan {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.logoAnhTuVan {
+    width: 42px;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.logoTuVan h1 {
+    font-size: 17px;
+    margin: 0;
+    color: var(--white);
+}
+
+.logoTuVan p {
+    font-size: 12px;
+    margin: 2px 0 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.nutVeTrangChu {
+    color: var(--white);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+}
+
+.khungTuVanChinh {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.menuTuVanTrai {
+    width: 240px;
+    background: var(--white);
+    border-right: 1px solid var(--line);
+    padding: 18px;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.menuTuVanTrai h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+    margin: 18px 0 8px;
+}
+
+.mucLichSuChat,
+.mucCongCu {
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 4px;
+}
+
+.mucLichSuChat:hover,
+.mucCongCu:hover {
+    background: var(--mint);
+}
+
+.mucLichSuChat.active {
+    background: var(--pine);
+    color: var(--white);
+}
+
+.khungChat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--mint);
+}
+
+.vungTinNhan {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tinNhan {
+    display: flex;
+    gap: 10px;
+    max-width: 70%;
+}
+
+.tinNhanAI {
+    align-self: flex-start;
+}
+
+.tinNhanNguoiDung {
+    align-self: flex-end;
+    flex-direction: row;
+}
+
+.avatarChat {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.avatarAI {
+    background: var(--pine);
+}
+
+.avatarNguoiDung {
+    background: var(--clay);
+}
+
+.bongChat {
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14.5px;
+    line-height: 1.5;
+}
+
+.bongChatAI {
+    background: var(--white);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-top-left-radius: 4px;
+}
+
+.bongChatNguoiDung {
+    background: var(--pine);
+    color: var(--white);
+    border-top-right-radius: 4px;
+}
+
+.thoiGianChat {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    display: block;
+}
+
+.tinNhanNguoiDung .noiDungTinNhan {
+    text-align: right;
+}
+
+.dangGoChat {
+    display: flex;
+    gap: 10px;
+    padding: 0 24px 10px;
+    align-items: center;
+}
+
+.dangGoChat .bongChat {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+}
+
+.cham {
+    width: 6px;
+    height: 6px;
+    background: var(--ink-soft);
+    border-radius: 50%;
+    animation: nhayCham 1.2s infinite ease-in-out;
+}
+
+.cham:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.cham:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes nhayCham {
+
+    0%,
+    60%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-4px);
+    }
+}
+
+.khungNhapChat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    flex-shrink: 0;
+}
+
+.khungNhapChat input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.khungNhapChat input:focus {
+    outline: none;
+    border-color: var(--teal);
+}
+
+.nutIconChat {
+    background: var(--mint);
+    color: var(--pine);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    box-shadow: none;
+}
+
+#nutGuiChat {
+    background: var(--clay);
+    border-radius: 999px;
+}
+
+.canhBaoAI {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding: 8px 20px 14px;
+    margin: 0;
+    background: var(--white);
+}
+
+/* -------------------------------------- TRANG ƯU ĐÃI THÀNH VIÊN  */
+.trangVip {
+    background: var(--mint);
+    margin: 0;
+    min-height: 100vh;
+}
+
+.khungVipChinh {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.theHangThanhVien {
+    background: linear-gradient(135deg, var(--pine), var(--teal));
+    color: var(--white);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: var(--shadow-lg);
+}
+
+.avatarVip {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    flex-shrink: 0;
+}
+
+.thongTinVip {
+    flex: 1;
+}
+
+.tenKhachVip {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.hangThanhVienVip {
+    margin: 4px 0 0;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.diemVip {
+    text-align: right;
+}
+
+.soDiemVip {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.tienTrinhVip {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-top: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.hangTienTrinh {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+}
+
+.thanhTienTrinhNen {
+    background: var(--mint);
+    border-radius: 999px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.thanhTienTrinhFill {
+    background: var(--clay);
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+.ghiChuTienTrinh {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 8px 0 0;
+}
+
+.danhSachHangVip,
+.danhSachVoucher,
+.lichSuVip {
+    margin-top: 24px;
+}
+
+.danhSachHangVip h2,
+.danhSachVoucher h2,
+.lichSuVip h2 {
+    font-size: 20px;
+    color: var(--pine);
+    margin-bottom: 12px;
+}
+
+.luoiHangVip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.theHangNho {
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+}
+
+.theHangNho.hangDangCo {
+    border-color: var(--clay);
+    box-shadow: 0 0 0 3px rgba(225, 91, 79, 0.15);
+}
+
+.iconHang {
+    font-size: 28px;
+}
+
+.theHangNho h3 {
+    margin: 8px 0 4px;
+    color: var(--pine);
+    font-size: 16px;
+}
+
+.theHangNho p {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+}
+
+.theHangNho ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12.5px;
+    text-align: left;
+    color: var(--ink);
+}
+
+.theHangNho li {
+    padding: 3px 0;
+}
+
+.luoiVoucher {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.theVoucher {
+    background: var(--white);
+    border: 1.5px dashed var(--clay);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.theVoucherKhoa {
+    opacity: 0.5;
+    border-color: var(--line);
+}
+
+.tenVoucher {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--clay-dark);
+    margin: 0;
+}
+
+.dieuKienVoucher {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 4px 0;
+}
+
+.maVoucher {
+    font-size: 12px;
+    background: var(--mint);
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.trangThaiVoucher {
+    font-size: 12px;
+    margin: 6px 0 0;
+    font-weight: 600;
+}
+
+.dongLichSuDiem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+}
+
+.diemCongVip {
+    color: #1a8f5e;
+    font-weight: 700;
 }

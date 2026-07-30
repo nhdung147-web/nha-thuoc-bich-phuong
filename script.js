@@ -1297,6 +1297,8 @@ nutXacNhanDatHang.addEventListener("click", function () {
         return;
     }
 
+
+
     const tongTienHienTai = tinhTongTien();
     const maDonHang = "DH" + Date.now();
 
@@ -1319,9 +1321,13 @@ nutXacNhanDatHang.addEventListener("click", function () {
     donHangDaCo.unshift(donHangMoi);
     localStorage.setItem(khoaTheoTaiKhoan("lichSuDonHang"), JSON.stringify(donHangDaCo));
 
-    hienThiThongBao("🎉 Đặt hàng thành công! Mã đơn: " + maDonHang, "success");
+    hienThiThongBao("🎉 Đặt hàng thành công! Mã đơn: " + maDonHang, "success"); hienThiThongBao(
+        "🎉 Đặt hàng thành công! Mã đơn: " + maDonHang + ". Cảm ơn Quý khách đã tin tưởng lựa chọn Nhà thuốc Bích Phượng. Chúng tôi sẽ liên hệ và giao hàng trong thời gian sớm nhất.",
+        "success"
+    );
 
     gioHang = {};
     capNhatGioHang();
     hopThoaiGiaoHang.style.display = "none";
 });
+
