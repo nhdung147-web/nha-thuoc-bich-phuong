@@ -132,6 +132,7 @@ function vedanhsach(mang) {
                 <img src="${sp.anh}" alt="${sp.ten}" width="100" height="100">
                 <span class="tenSanPham">${sp.ten}</span> - ${sp.gia.toLocaleString()}đ
                 <br>
+                <span class="nutXemChiTiet">▾ thông tin sản phẩm</span>
                 <p class="chitiet" style="display:none;">${sp.chitiet}</p>
                 <button class="nutYeuThich ${daYeuThich ? 'active' : ''}" data-ten="${sp.ten}">❤</button>
                 <button class="nutThemGio" data-ten="${sp.ten}" data-gia="${sp.gia}" data-tonkho="${sp.tonkho}" ${sp.tonkho === 0 ? 'disabled' : ''}>${sp.tonkho === 0 ? 'Hết hàng' : 'Thêm'}</button>
@@ -310,12 +311,17 @@ oDanhSach.addEventListener("click", function (e) {
         vedanhsach(danhSach);
     }
 
-    if (e.target.classList.contains("tenSanPham")) {
-        const chiTiet = e.target.closest("li").querySelector(".chitiet");
+    if (e.target.classList.contains("tenSanPham") || e.target.classList.contains("nutXemChiTiet")) {
+        const li = e.target.closest("li");
+        const chiTiet = li.querySelector(".chitiet");
+        const nutXem = li.querySelector(".nutXemChiTiet");
+
         if (chiTiet.style.display === "none") {
             chiTiet.style.display = "block";
+            nutXem.textContent = "▴ Ẩn bớt";
         } else {
             chiTiet.style.display = "none";
+            nutXem.textContent = "▾ thông tin sản phẩm";
         }
     }
 });

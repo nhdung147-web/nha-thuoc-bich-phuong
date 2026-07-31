@@ -84,6 +84,12 @@ oNhapChat.addEventListener("keydown", function (e) {
     if (e.key === "Enter") guiTinNhan();
 });
 
+document.querySelectorAll(".mucCongCu").forEach(function (muc) {
+    muc.addEventListener("click", function () {
+        themTinNhanAI(`Tính năng "<b>${muc.textContent}</b>" đang được phát triển. Sẽ sớm ra mắt! 🚀`);
+    });
+});
+
 document.querySelector("#nutUpload").addEventListener("click", function () {
     themTinNhanAI("Tính năng tải ảnh lên đang được phát triển.");
 });
