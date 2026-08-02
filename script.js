@@ -39,6 +39,7 @@ const dongKhungYeuThichButton = document.querySelector("#dongKhungYeuThich");
 const thongBao = document.querySelector("#thongBao");
 const thongBaoStripItems = Array.from(document.querySelectorAll(".thongBaoItem"));
 let viTriThongBaoHienTai = 0;
+let ketQuaGiaoHangHienTai = null;
 
 function hienThiThongBao(message, type = "info") {
     const thongTam = document.createElement("div");
@@ -987,8 +988,73 @@ nutXoaMaGiamGia.addEventListener("click", function () {
     hienThiThongBao("Đã xóa mã giảm giá.", "info");
 });
 
-const nutThanhToan =
-    document.querySelector("#nutThanhToan");
+
+console.log(document.getElementById("popupThanhCong"));
+
+function hienpopupThanhCong(donHang) {
+    document.getElementById("noiDungPopupThanhCong").innerHTML = `
+        <strong>Mã đơn hàng:</strong> ${donHang.maDonHang}<br>
+        <strong>Khách hàng:</strong> ${donHang.tenKhachHang}<br>
+        <strong>Phương thức thanh toán:</strong> ${donHang.phuongThucThanhToan}<br>
+        <strong>Tổng tiền:</strong> ${donHang.tongTien.toLocaleString()}đ<br>
+        <strong>Dự kiến giao hàng:</strong> ${donHang.duKienGiaoHang}<br><br>
+        Cảm ơn Quý khách đã tin tưởng lựa chọn Nhà thuốc Bích Phượng! 💚
+    `;
+    document.getElementById("popupThanhCong").style.display = "flex";
+    taoPhaoHoa();
+}
+
+function dongPopupThanhCong() {
+    document.getElementById("popupThanhCong").style.display = "none";
+}
+
+function taoPhaoHoa() {
+    const canvas = document.getElementById("phaoHoa");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let hat = [];
+
+    for (let i = 0; i < 250; i++) {
+        hat.push({
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2,
+            dx: (Math.random() - 0.5) * 12,
+            dy: (Math.random() - 0.5) * 12,
+            size: Math.random() * 5 + 2,
+            life: 100,
+            color: `hsl(${Math.random() * 360},100%,60%)`
+        });
+
+    }
+
+    function ve() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hat.forEach(p => {
+            ctx.beginPath();
+            ctx.fillStyle = p.color;
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            p.x += p.dx;
+            p.y += p.dy;
+            p.dy += 0.05;
+            p.life--;
+        });
+
+        hat = hat.filter(p => p.life > 0);
+
+        if (hat.length > 0) {
+            requestAnimationFrame(ve);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    ve();
+}
+
+const nutThanhToan = document.querySelector("#nutThanhToan");
 
 nutThanhToan.addEventListener("click", function () {
 
@@ -997,9 +1063,15 @@ nutThanhToan.addEventListener("click", function () {
         return;
     }
 
+    if (!ketQuaGiaoHangHienTai) {
+        hienThiThongBao("Vui lòng kiểm tra khu vực giao hàng trước khi thanh toán.", "error");
+        khungGioHang.style.display = "none";
+        hopThoaiGiaoHang.style.display = "flex";
+        return;
+    }
+
     const thongTinGiaoHang = layThongTinGiaoHang();
     const thongTinBiThieu = [];
-
     if (!thongTinGiaoHang.hoTen) thongTinBiThieu.push("Họ tên người nhận");
     if (!thongTinGiaoHang.soDienThoai) thongTinBiThieu.push("Số điện thoại");
     if (!thongTinGiaoHang.diaChi) thongTinBiThieu.push("Địa chỉ giao hàng");
@@ -1017,13 +1089,9 @@ nutThanhToan.addEventListener("click", function () {
     }
 
     let tongTien = 0;
-    let hoaDon = "===== HÓA ĐƠN =====\n\n";
-
     Object.keys(gioHang).forEach(function (ten) {
         const sp = gioHang[ten];
-        const thanhTien = sp.gia * sp.soLuong;
-        tongTien += thanhTien;
-        hoaDon += `${ten}\nSL: ${sp.soLuong}\nThành tiền: ${thanhTien.toLocaleString()}đ\n\n`;
+        tongTien += sp.gia * sp.soLuong;
     });
 
     let tongTienSauGiam = Math.max(0, tongTien - soTienGiam);
@@ -1038,9 +1106,6 @@ nutThanhToan.addEventListener("click", function () {
             tienGiamDiem = diemDaDung * 1000;
             tongTienSauGiam = Math.max(0, tongTienSauGiam - tienGiamDiem);
             localStorage.setItem(khoaTheoTaiKhoan("diemTichLuy"), String(diemCo - diemDaDung));
-            hienThiThongBao(`Đã dùng ${diemDaDung} điểm, giảm ${tienGiamDiem.toLocaleString()}đ.`, "success");
-        } else {
-            hienThiThongBao("Bạn không đủ điểm để dùng.", "info");
         }
     }
 
@@ -1048,14 +1113,26 @@ nutThanhToan.addEventListener("click", function () {
     const diemHienTai = layDiemTichLuy();
     localStorage.setItem(khoaTheoTaiKhoan("diemTichLuy"), String(diemHienTai + diemMoi));
 
-    hoaDon += `Thông tin giao hàng:\nHọ tên: ${thongTinGiaoHang.hoTen}\nSĐT: ${thongTinGiaoHang.soDienThoai}\nĐịa chỉ: ${thongTinGiaoHang.diaChi}\n\nPhương thức: ${layPhuongThucThanhToanText()}\nTổng tiền: ${tongTienSauGiam.toLocaleString()}đ\nCảm ơn quý khách!`;
+    const maDonHang = "DH" + Date.now();
+
+    let thongTinCN = {};
+    try {
+        thongTinCN = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("thongTinCaNhan"))) || {};
+    } catch (error) {
+        thongTinCN = {};
+    }
+    const tenKhachHang = thongTinGiaoHang.hoTen || thongTinCN.hoTen || "Khách hàng";
 
     const donHangMoi = {
+        maDonHang: maDonHang,
         thoiGian: new Date().toLocaleString("vi-VN"),
         tongTien: tongTienSauGiam,
         sanPham: Object.keys(gioHang).map(function (ten) {
             return `${ten} x${gioHang[ten].soLuong}`;
-        })
+        }),
+        tenKhachHang: tenKhachHang,
+        phuongThucThanhToan: layPhuongThucThanhToanText(),
+        duKienGiaoHang: ketQuaGiaoHangHienTai.thoiGianText
     };
 
     let donHangDaCo = [];
@@ -1064,15 +1141,17 @@ nutThanhToan.addEventListener("click", function () {
     } catch (error) {
         donHangDaCo = [];
     }
-
     donHangDaCo.unshift(donHangMoi);
     localStorage.setItem(khoaTheoTaiKhoan("lichSuDonHang"), JSON.stringify(donHangDaCo));
 
     capNhatHienThiTichDiem();
-    hienThiThongBao("Đặt hàng thành công! Đơn hàng đã được lưu vào lịch sử.", "success");
+    hienPopupThanhCong(donHangMoi);
     capNhatLichSuDonHang();
+
     gioHang = {};
+    ketQuaGiaoHangHienTai = null;
     capNhatGioHang();
+    khungGioHang.style.display = "none";
 });
 
 nutThongTinGiaoHang.addEventListener("click", function (event) {
@@ -1212,85 +1291,49 @@ const khuVucLanCan = [
 
 kiemTraKhuVuc.addEventListener("click", function () {
 
-    if (tinhThanh.value === "") {
-        alert("Vui lòng chọn tỉnh/thành.");
-        return;
-    }
-
-    if (quanHuyen.value === "") {
-        alert("Vui lòng chọn huyện.");
-        return;
-    }
-
-    if (xaPhuong.value === "") {
-        alert("Vui lòng chọn xã.");
-        return;
-    }
-
-    if (diaChiChiTiet.value.trim() === "") {
-        alert("Vui lòng nhập địa chỉ.");
-        return;
-    }
-
-    if (soDienThoaiGiaoHang.value.trim() === "") {
-        alert("Vui lòng nhập số điện thoại.");
-        return;
-    }
+    if (tinhThanh.value === "") { alert("Vui lòng chọn tỉnh/thành."); return; }
+    if (quanHuyen.value === "") { alert("Vui lòng chọn huyện."); return; }
+    if (xaPhuong.value === "") { alert("Vui lòng chọn xã."); return; }
+    if (diaChiChiTiet.value.trim() === "") { alert("Vui lòng nhập địa chỉ."); return; }
+    if (soDienThoaiGiaoHang.value.trim() === "") { alert("Vui lòng nhập số điện thoại."); return; }
 
     if (khuVucGiaoNhanh.includes(xaPhuong.value)) {
-
         ketQuaKhuVuc.innerHTML = `
-
-        <div class="theKetQua">
-
-            <h4 class="thanhCong">✅ Giao hàng nhanh</h4>
-
-            <p><b>Khu vực:</b> ${xaPhuong.value}</p>
-            <p><b>Khoảng cách:</b> Dưới 10 km</p>
-            <p><b>Thời gian:</b> 20 - 45 phút</p>
-            <p><b>Phí giao:</b> 15.000đ</p>
-            <p><b>Trạng thái:</b> Có thể giao ngay hôm nay.</p>
-        </div>
-
+            <div class="theKetQua">
+                <h4 class="thanhCong">✅ Giao hàng nhanh</h4>
+                <p><b>Khu vực:</b> ${xaPhuong.value}</p>
+                <p><b>Thời gian:</b> 20 - 45 phút</p>
+                <p><b>Phí giao:</b> 15.000đ</p>
+            </div>
         `;
-
+        ketQuaGiaoHangHienTai = { loai: "nhanh", thoiGianText: "20 - 45 phút (giao nhanh)", phiGiao: 15000 };
         nutXacNhanDatHang.disabled = false;
         return;
     }
 
     if (khuVucLanCan.includes(xaPhuong.value)) {
         ketQuaKhuVuc.innerHTML = `
-        <div class="theKetQua">
-
-            <h4 class="canhBao">⚠ Khu vực lân cận</h4>
-
-            <p><b>Khu vực:</b> ${xaPhuong.value}</p>
-            <p><b>Khoảng cách:</b> 10 - 30 km</p>
-            <p><b>Thời gian:</b> 60 - 120 phút</p>
-            <p><b>Phí giao:</b> 30.000đ</p>
-            <p><b>Trạng thái:</b> Có thể giao trong ngày.</p>
-        </div>
-
+            <div class="theKetQua">
+                <h4 class="canhBao">⚠ Khu vực lân cận</h4>
+                <p><b>Khu vực:</b> ${xaPhuong.value}</p>
+                <p><b>Thời gian:</b> 60 - 120 phút</p>
+                <p><b>Phí giao:</b> 30.000đ</p>
+            </div>
         `;
-
+        ketQuaGiaoHangHienTai = { loai: "lanCan", thoiGianText: "60 - 120 phút (khu vực lân cận)", phiGiao: 30000 };
         nutXacNhanDatHang.disabled = false;
         return;
     }
 
     ketQuaKhuVuc.innerHTML = `
-
-    <div class="theKetQua">
-
-        <h4 class="thatBai"> ❌ Ngoài phạm vi giao hàng</h4>
-        
-        <p><b>Khu vực:</b> ${xaPhuong.value}</p>
-        <p>Địa chỉ của bạn hiện chưa nằm trong phạm vi giao nhanh.</p>
-        <p>Nhà thuốc sẽ liên hệ để tư vấn phương án vận chuyển phù hợp.</p>
-    </div>
-
+        <div class="theKetQua">
+            <h4 class="thatBai">❌ Ngoài phạm vi giao nhanh</h4>
+            <p><b>Khu vực:</b> ${xaPhuong.value}</p>
+            <p>Nhà thuốc sẽ liên hệ tư vấn phương án vận chuyển phù hợp.</p>
+        </div>
     `;
-
-    nutXacNhanDatHang.disabled = true;
+    ketQuaGiaoHangHienTai = { loai: "ngoai", thoiGianText: "Nhà thuốc sẽ liên hệ để báo thời gian giao hàng cụ thể", phiGiao: 0 };
+    nutXacNhanDatHang.disabled = false;
 });
 
 nutXacNhanDatHang.addEventListener("click", function () {
@@ -1327,13 +1370,35 @@ nutXacNhanDatHang.addEventListener("click", function () {
     donHangDaCo.unshift(donHangMoi);
     localStorage.setItem(khoaTheoTaiKhoan("lichSuDonHang"), JSON.stringify(donHangDaCo));
 
-    hienThiThongBao("🎉 Đặt hàng thành công! Mã đơn: " + maDonHang, "success"); hienThiThongBao(
-        "🎉 Đặt hàng thành công! Mã đơn: " + maDonHang + ". Cảm ơn Quý khách đã tin tưởng lựa chọn Nhà thuốc Bích Phượng. Chúng tôi sẽ liên hệ và giao hàng trong thời gian sớm nhất.",
+    hienThiThongBao("🎉 Đặt hàng thành công! Mã đơn: " + maDonHang, "success");
+    hienThiThongBao("🎉 Đặt hàng thành công! Mã đơn: " + maDonHang + ". Cảm ơn Quý khách đã tin tưởng lựa chọn Nhà thuốc Bích Phượng. Chúng tôi sẽ liên hệ và giao hàng trong thời gian sớm nhất.",
         "success"
     );
 
     gioHang = {};
     capNhatGioHang();
     hopThoaiGiaoHang.style.display = "none";
+}); nutXacNhanDatHang.addEventListener("click", function () {
+    if (nutXacNhanDatHang.disabled) {
+        hienThiThongBao("Vui lòng kiểm tra khu vực giao hàng trước.", "error");
+        return;
+    }
+    if (Object.keys(gioHang).length === 0) {
+        hienThiThongBao("Giỏ hàng đang trống.", "error");
+        return;
+    }
+
+    document.querySelector("#hoTenNguoiNhan").value = document.querySelector("#hoTenNguoiNhan").value || "";
+    document.querySelector("#soDienThoai").value = soDienThoaiGiaoHang.value;
+    document.querySelector("#diaChiGiaoHang").value = `${diaChiChiTiet.value}, ${xaPhuong.value}, ${quanHuyen.value}, ${tinhThanh.value}`;
+
+    hopThoaiGiaoHang.style.display = "none";
+    khungGioHang.style.display = "block";
+    hienThiThongBao("Đã xác nhận khu vực giao hàng. Vui lòng hoàn tất thanh toán.", "success");
 });
 
+document.getElementById("popupThanhCong").addEventListener("click", function (e) {
+    if (e.target.id === "popupThanhCong") {
+        dongPopupThanhCong();
+    }
+});
