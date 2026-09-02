@@ -1,3 +1,6 @@
+//================================================================
+// LƯU TRỮ THEO TÀI KHOẢN (giống hệt nguyên tắc bên script.js chính)
+//================================================================
 function taiKhoanHienTai() {
     if (localStorage.getItem("daDangNhap") === "true") {
         return localStorage.getItem("tenTaiKhoanHienTai");
@@ -10,14 +13,22 @@ function khoaTheoTaiKhoan(tenKhoa) {
     return tk ? `${tenKhoa}_${tk}` : tenKhoa;
 }
 
-function layDiemTichLuyVip() {
+function docJSON(key, macDinh) {
     try {
-        return Number(localStorage.getItem(khoaTheoTaiKhoan("diemTichLuy"))) || 0;
-    } catch (error) {
-        return 0;
+        const gt = JSON.parse(localStorage.getItem(key));
+        return gt === null || gt === undefined ? macDinh : gt;
+    } catch (loi) {
+        return macDinh;
     }
 }
 
+function layDiemTichLuyVip() {
+    return Number(localStorage.getItem(khoaTheoTaiKhoan("diemTichLuy"))) || 0;
+}
+
+//================================================================
+// CÁC BẬC HẠNG THÀNH VIÊN
+//================================================================
 const bacThangHang = [
     { ten: "Member", moc: 0 },
     { ten: "Silver", moc: 500 },
@@ -27,31 +38,29 @@ const bacThangHang = [
 ];
 
 function tinhHangHienTai(diem) {
-    let hangHienTai = bacThangHang[0];
+    let hang = bacThangHang[0];
     for (let i = 0; i < bacThangHang.length; i++) {
-        if (diem >= bacThangHang[i].moc) {
-            hangHienTai = bacThangHang[i];
-        }
+        if (diem >= bacThangHang[i].moc) hang = bacThangHang[i];
     }
-    return hangHienTai;
+    return hang;
 }
 
 function tinhHangTiepTheo(diem) {
     for (let i = 0; i < bacThangHang.length; i++) {
-        if (diem < bacThangHang[i].moc) {
-            return bacThangHang[i];
-        }
+        if (diem < bacThangHang[i].moc) return bacThangHang[i];
     }
     return null;
 }
 
+//================================================================
+// VẼ GIAO DIỆN CHÍNH: thẻ hạng + thanh tiến trình
+//================================================================
 function capNhatGiaoDienVip() {
-    const daDangNhap = localStorage.getItem("daDangNhap") === "true";
     const tenKhachVip = document.querySelector("#tenKhachVip");
     const hangThanhVienVip = document.querySelector("#hangThanhVienVip");
     const soDiemVipLon = document.querySelector("#soDiemVipLon");
 
-    if (!daDangNhap) {
+    if (localStorage.getItem("daDangNhap") !== "true") {
         tenKhachVip.textContent = "Khách";
         hangThanhVienVip.textContent = "Vui lòng đăng nhập để xem hạng thành viên";
         soDiemVipLon.textContent = "0";
@@ -60,13 +69,7 @@ function capNhatGiaoDienVip() {
         return;
     }
 
-    let thongTin = {};
-    try {
-        thongTin = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("thongTinCaNhan"))) || {};
-    } catch (error) {
-        thongTin = {};
-    }
-
+    const thongTin = docJSON(khoaTheoTaiKhoan("thongTinCaNhan"), {});
     const diem = layDiemTichLuyVip();
     const hangHienTai = tinhHangHienTai(diem);
     const hangTiepTheo = tinhHangTiepTheo(diem);
@@ -74,13 +77,12 @@ function capNhatGiaoDienVip() {
     tenKhachVip.textContent = thongTin.hoTen || "Thành viên";
     hangThanhVienVip.textContent = "Hạng " + hangHienTai.ten;
     soDiemVipLon.textContent = diem.toLocaleString();
-
     document.querySelector("#diemHienTaiText").textContent = diem.toLocaleString() + " điểm";
 
     if (hangTiepTheo) {
-        const diemCanCoDeVuotMoc = hangTiepTheo.moc - hangHienTai.moc;
-        const diemDaCoTrongBac = diem - hangHienTai.moc;
-        const phanTram = Math.min(100, Math.round((diemDaCoTrongBac / diemCanCoDeVuotMoc) * 100));
+        const canDe = hangTiepTheo.moc - hangHienTai.moc;
+        const daCo = diem - hangHienTai.moc;
+        const phanTram = Math.min(100, Math.round((daCo / canDe) * 100));
 
         document.querySelector("#diemMucTieuText").textContent = "Mục tiêu: " + hangTiepTheo.moc.toLocaleString() + " điểm";
         document.querySelector("#thanhTienTrinhFill").style.width = phanTram + "%";
@@ -96,15 +98,19 @@ function capNhatGiaoDienVip() {
     });
 }
 
+//================================================================
+// VẼ DANH SÁCH VOUCHER (khóa/mở tùy theo hạng hiện tại)
+//================================================================
 function veVoucherVip() {
     const luoiVoucher = document.querySelector("#luoiVoucher");
     const diem = layDiemTichLuyVip();
     const hangHienTai = tinhHangHienTai(diem);
+    const hangDuMienPhiShip = ["Gold", "Platinum", "Diamond"].includes(hangHienTai.ten);
 
     const danhSachVoucher = [
-        { ten: "Giảm 10%", dieuKien: "Đơn từ 200.000đ", ma: "SALE10" },
-        { ten: "Giảm 20%", dieuKien: "Đơn từ 500.000đ", ma: "WELCOME20" },
-        { ten: "Miễn phí ship", dieuKien: "Dành cho hạng Gold trở lên", khoa: ["Gold", "Platinum", "Diamond"].includes(hangHienTai.ten) === false },
+        { ten: "Giảm 10%", dieuKien: "Đơn từ 200.000đ", ma: "SALE10", khoa: false },
+        { ten: "Giảm 20%", dieuKien: "Đơn từ 500.000đ", ma: "WELCOME20", khoa: false },
+        { ten: "Miễn phí ship", dieuKien: "Dành cho hạng Gold trở lên", khoa: !hangDuMienPhiShip },
         { ten: "Quà sinh nhật", dieuKien: "Dành cho hạng Diamond", khoa: hangHienTai.ten !== "Diamond" }
     ];
 
@@ -120,14 +126,12 @@ function veVoucherVip() {
     }).join("");
 }
 
+//================================================================
+// VẼ LỊCH SỬ TÍCH ĐIỂM (dựa trên lịch sử đơn hàng đã có)
+//================================================================
 function veLichSuDiemVip() {
     const lichSuDiemVip = document.querySelector("#lichSuDiemVip");
-    let donHangDaCo = [];
-    try {
-        donHangDaCo = JSON.parse(localStorage.getItem(khoaTheoTaiKhoan("lichSuDonHang"))) || [];
-    } catch (error) {
-        donHangDaCo = [];
-    }
+    const donHangDaCo = docJSON(khoaTheoTaiKhoan("lichSuDonHang"), []);
 
     if (donHangDaCo.length === 0) {
         lichSuDiemVip.innerHTML = "<p>Chưa có lịch sử tích điểm.</p>";
@@ -145,6 +149,9 @@ function veLichSuDiemVip() {
     }).join("");
 }
 
+//================================================================
+// KHỞI TẠO
+//================================================================
 capNhatGiaoDienVip();
 veVoucherVip();
 veLichSuDiemVip();

@@ -1,8 +1,10 @@
+
 const danhSachThuocAI = {
     "panadol": { ten: "Panadol (Paracetamol)", thanhPhan: "Paracetamol 500mg", lieuDung: "1-2 viên/lần, cách 4-6 giờ, tối đa 8 viên/ngày", tacDung: "Giảm đau, hạ sốt", tacDungPhu: "Hiếm gặp: buồn nôn, phát ban. Quá liều gây hại gan.", chongChiDinh: "Người suy gan nặng, dị ứng paracetamol", baoQuan: "Nơi khô ráo, dưới 30°C" },
     "vitamin c": { ten: "Vitamin C", thanhPhan: "Acid ascorbic", lieuDung: "500-1000mg/ngày", tacDung: "Tăng cường miễn dịch, chống oxy hóa", tacDungPhu: "Liều cao có thể gây rối loạn tiêu hóa", chongChiDinh: "Người sỏi thận nên thận trọng", baoQuan: "Nơi khô ráo, tránh ánh sáng" },
     "omega 3": { ten: "Omega 3", thanhPhan: "EPA, DHA từ dầu cá", lieuDung: "1-2 viên/ngày sau ăn", tacDung: "Hỗ trợ tim mạch, trí não, thị lực", tacDungPhu: "Có thể gây ợ hơi mùi cá", chongChiDinh: "Người rối loạn đông máu cần hỏi bác sĩ", baoQuan: "Nơi mát, tránh ánh sáng trực tiếp" }
 };
+
 
 const vungTinNhan = document.querySelector("#vungTinNhan");
 const oNhapChat = document.querySelector("#oNhapChat");
@@ -42,6 +44,7 @@ function themTinNhanAI(noiDungHtml) {
 
 function timThongTinThuoc(cauHoi) {
     const cauHoiThuong = cauHoi.toLowerCase();
+
     for (const tenKhoa in danhSachThuocAI) {
         if (cauHoiThuong.includes(tenKhoa)) {
             const t = danhSachThuocAI[tenKhoa];
@@ -57,6 +60,7 @@ function timThongTinThuoc(cauHoi) {
             `;
         }
     }
+
     return `
         Tôi chưa có dữ liệu chi tiết về loại thuốc này.<br><br>
         Thử hỏi về: <b>Panadol</b>, <b>Vitamin C</b>, <b>Omega 3</b><br><br>
