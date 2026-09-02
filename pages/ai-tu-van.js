@@ -10,6 +10,32 @@ const vungTinNhan = document.querySelector("#vungTinNhan");
 const oNhapChat = document.querySelector("#oNhapChat");
 const nutGuiChat = document.querySelector("#nutGuiChat");
 const dangGoChat = document.querySelector("#dangGoChat");
+const chkAiOn = document.querySelector('#chkAiOn');
+const aiApiKeyInput = document.querySelector('#aiApiKeyInput');
+const nutLuuAiKey = document.querySelector('#nutLuuAiKey');
+
+// Load saved AI settings from localStorage (key: aiApiKey and aiEnabled)
+function taiCauHinhAI() {
+    const enabled = localStorage.getItem('aiEnabled') === 'true';
+    const key = localStorage.getItem('aiApiKey') || '';
+    if (chkAiOn) chkAiOn.checked = enabled;
+    if (aiApiKeyInput) aiApiKeyInput.value = key;
+    if (aiApiKeyInput) aiApiKeyInput.style.display = enabled ? 'inline-block' : 'none';
+    if (nutLuuAiKey) nutLuuAiKey.style.display = enabled ? 'inline-block' : 'none';
+}
+
+function luuCauHinhAI() {
+    if (!chkAiOn) return;
+    const enabled = chkAiOn.checked;
+    localStorage.setItem('aiEnabled', enabled ? 'true' : 'false');
+    if (aiApiKeyInput && aiApiKeyInput.value.trim() !== '') localStorage.setItem('aiApiKey', aiApiKeyInput.value.trim());
+    taiCauHinhAI();
+}
+
+if (chkAiOn) chkAiOn.addEventListener('change', function () { taiCauHinhAI(); });
+if (nutLuuAiKey) nutLuuAiKey.addEventListener('click', luuCauHinhAI);
+// initialize settings
+taiCauHinhAI();
 
 function layGioHienTai() {
     const now = new Date();
@@ -74,13 +100,57 @@ function guiTinNhan() {
 
     themTinNhanNguoiDung(noiDung);
     oNhapChat.value = "";
-    dangGoChat.style.display = "flex";
     vungTinNhan.scrollTop = vungTinNhan.scrollHeight;
 
-    setTimeout(function () {
-        dangGoChat.style.display = "none";
-        themTinNhanAI(timThongTinThuoc(noiDung));
-    }, 1200);
+    // If AI enabled and API key present, call external API. Otherwise fallback to local KB.
+    const aiEnabled = localStorage.getItem('aiEnabled') === 'true';
+    const apiKey = localStorage.getItem('aiApiKey') || '';
+
+    if (aiEnabled && apiKey) {
+        // show typing
+        dangGoChat.style.display = 'flex';
+        vungTinNhan.scrollTop = vungTinNhan.scrollHeight;
+
+        // call OpenAI Chat Completions
+        fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + apiKey
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    { role: 'system', content: 'Bạn là trợ lý dược sĩ bằng tiếng Việt; trả lời ngắn gọn, an toàn, không chẩn đoán bệnh, và đề cập khi cần gặp bác sĩ.' },
+                    { role: 'user', content: noiDung }
+                ],
+                max_tokens: 500,
+                temperature: 0.2
+            })
+        }).then(function (res) {
+            return res.json();
+        }).then(function (data) {
+            dangGoChat.style.display = 'none';
+            try {
+                const txt = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || 'Xin lỗi, AI chưa trả lời.';
+                themTinNhanAI(txt.replace(/\n/g, '<br>'));
+            } catch (e) {
+                themTinNhanAI('Lỗi khi nhận phản hồi từ AI.');
+            }
+        }).catch(function (err) {
+            dangGoChat.style.display = 'none';
+            themTinNhanAI('Không thể kết nối AI: ' + (err.message || err));
+            // fallback to local KB
+            setTimeout(function () { themTinNhanAI(timThongTinThuoc(noiDung)); }, 600);
+        });
+    } else {
+        // local KB fallback
+        dangGoChat.style.display = 'flex';
+        setTimeout(function () {
+            dangGoChat.style.display = 'none';
+            themTinNhanAI(timThongTinThuoc(noiDung));
+        }, 900);
+    }
 }
 
 nutGuiChat.addEventListener("click", guiTinNhan);

@@ -877,24 +877,60 @@ function xuLyMucMenu(action) {
         case "donHang": {
             const donHangDaCo = docJSON(khoaTheoTaiKhoan("lichSuDonHang"), []);
             if (donHangDaCo.length === 0) {
-                moKhungMenu("Đơn hàng của tôi", `<div class="bangThongTinChucNang"><div class="hangThongTin">Bạn chưa có đơn hàng nào.</div></div>`);
+                moKhungMenu("Đơn hàng của tôi", `
+                    <div class="dsDonHang">
+                        <div class="hangThongTin">Bạn chưa có đơn hàng nào.</div>
+                    </div>
+                `);
             } else {
-                const html = donHangDaCo.slice(0, 10).map(function (d) {
-                    return `<div class="hangThongTin"><strong>${d.thoiGian}</strong> ${d.fastDelivery ? '<span class="badgeGiaoNhanh">Giao nhanh</span>' : ''}<br>Sản phẩm: ${d.sanPham.join(", ")}<br>Tổng tiền: ${d.tongTien.toLocaleString()}đ</div>`;
+                const html = donHangDaCo.slice(0, 20).map(function (d, idx) {
+                    return `
+                        <div class="donCard" data-index="${idx}">
+                            <div class="donCardHeader">
+                                <strong>${d.thoiGian}</strong>
+                                <span class="trangThaiDon ${d.fastDelivery ? 'trangThaiGiaoNhanh' : 'trangThaiThuong'}">${d.fastDelivery ? 'Giao nhanh' : d.trangThai || 'Đã xác nhận'}</span>
+                            </div>
+                            <div class="donCardBody">
+                                <div class="donSanPham">${d.sanPham.map(sp => `<div class=\"donSanPhamItem\">${sp}</div>`).join('')}</div>
+                                <div class="donTongTien">Tổng: <strong>${d.tongTien.toLocaleString()}đ</strong></div>
+                            </div>
+                            <div class="donCardFooter">
+                                <button class="nutXemChiTietDon" data-index="${idx}">Xem chi tiết</button>
+                                <button class="nutLapDi" data-index="${idx}">Mua lại</button>
+                            </div>
+                        </div>
+                    `;
                 }).join("");
-                moKhungMenu("Đơn hàng của tôi", `<div class="bangThongTinChucNang">${html}</div>`);
+                moKhungMenu("Đơn hàng của tôi", `<div class="dsDonHang">${html}</div>`);
             }
             break;
         }
         case "thongTin": {
-            const macDinh = { hoTen: taiKhoanHienTai() || "Khách", soDienThoai: "Chưa cập nhật", email: "Chưa cập nhật", diaChi: "Chưa cập nhật" };
+            const macDinh = { hoTen: taiKhoanHienTai() || "Khách", soDienThoai: "", email: "", diaChi: "" };
             const tt = { ...macDinh, ...docJSON(khoaTheoTaiKhoan("thongTinCaNhan"), {}) };
             moKhungMenu("Thông tin cá nhân", `
-                <div class="bangThongTinChucNang">
-                    <div class="hangThongTin"><strong>Họ và tên:</strong> ${tt.hoTen}</div>
-                    <div class="hangThongTin"><strong>Số điện thoại:</strong> ${tt.soDienThoai}</div>
-                    <div class="hangThongTin"><strong>Email:</strong> ${tt.email}</div>
-                    <div class="hangThongTin"><strong>Địa chỉ:</strong> ${tt.diaChi}</div>
+                <div class="khungCaNhan">
+                    <div class="khungAnhVaThongTin">
+                        <div class="khungAvatar">
+                            <img id="avatarPreview" src="${tt.avatar || 'linh-vat-bich-phuong-v2.svg'}" alt="avatar" />
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none;" />
+                            <button type="button" id="nutChonAnhCaNhan">Thay ảnh</button>
+                        </div>
+                    </div>
+                    <div class="khungFormCaNhan">
+                        <label>Họ và tên</label>
+                        <input id="in_hoTen" value="${tt.hoTen}" />
+                        <label>Số điện thoại</label>
+                        <input id="in_soDienThoai" value="${tt.soDienThoai}" />
+                        <label>Email</label>
+                        <input id="in_email" value="${tt.email}" />
+                        <label>Địa chỉ</label>
+                        <textarea id="in_diaChi">${tt.diaChi}</textarea>
+                        <div style="margin-top:12px; display:flex; gap:8px;">
+                            <button id="nutLuuThongTinCaNhan" class="nutKhungMenu">Lưu thông tin</button>
+                            <button id="nutHuyLuuCaNhan" class="nutPhu">Hủy</button>
+                        </div>
+                    </div>
                 </div>
             `);
             break;
@@ -940,6 +976,75 @@ noiDungMenuChucNang.addEventListener("click", function (e) {
         menuBaGach.style.display = "none";
         containerDangNhap.classList.remove("active");
         containerDangNhap.style.display = "block";
+    }
+    // Profile: choose avatar
+    if (e.target.id === "nutChonAnhCaNhan") {
+        const input = document.querySelector('#avatarInput');
+        if (input) input.click();
+    }
+
+    // Profile: save
+    if (e.target.id === "nutLuuThongTinCaNhan") {
+        const hoTen = document.querySelector('#in_hoTen').value.trim();
+        const soDienThoai = document.querySelector('#in_soDienThoai').value.trim();
+        const email = document.querySelector('#in_email').value.trim();
+        const diaChi = document.querySelector('#in_diaChi').value.trim();
+        const avatar = document.querySelector('#avatarPreview').src || '';
+        const tt = { hoTen, soDienThoai, email, diaChi, avatar };
+        localStorage.setItem(khoaTheoTaiKhoan('thongTinCaNhan'), JSON.stringify(tt));
+        hienThiThongBao('Đã lưu thông tin cá nhân.', 'success');
+        // update displayed title if menu open
+        tieuDeMenuChucNang.textContent = 'Thông tin cá nhân';
+    }
+
+    if (e.target.id === 'nutHuyLuuCaNhan') {
+        // simply close modal
+        dongKhungMenu();
+    }
+
+    // Order card actions
+    if (e.target.classList.contains('nutXemChiTietDon')) {
+        const idx = Number(e.target.dataset.index);
+        const donHangDaCo = docJSON(khoaTheoTaiKhoan('lichSuDonHang'), []);
+        const d = donHangDaCo[idx];
+        if (d) {
+            const html = `
+                <div class="hangThongTin"><strong>Thời gian:</strong> ${d.thoiGian}</div>
+                <div class="hangThongTin"><strong>Sản phẩm:</strong> ${d.sanPham.join(', ')}</div>
+                <div class="hangThongTin"><strong>Tổng tiền:</strong> ${d.tongTien.toLocaleString()}đ</div>
+                <div class="hangThongTin"><strong>Giao nhanh:</strong> ${d.fastDelivery ? 'Có' : 'Không'}</div>
+            `;
+            moKhungMenu('Chi tiết đơn', `<div class="bangThongTinChucNang">${html}</div>`);
+        }
+    }
+
+    if (e.target.classList.contains('nutLapDi')) {
+        const idx = Number(e.target.dataset.index);
+        const donHangDaCo = docJSON(khoaTheoTaiKhoan('lichSuDonHang'), []);
+        const d = donHangDaCo[idx];
+        if (d) {
+            // Add products back to cart (best-effort: increment by 1)
+            d.sanPham.forEach(function (ten) {
+                const sp = danhSach.find(s => s.ten === ten);
+                if (sp) themVaoGioHang(sp.ten, sp.gia, sp.tonkho);
+            });
+            hienThiThongBao('Đã thêm sản phẩm từ đơn vào giỏ hàng.', 'success');
+            dongKhungMenu();
+        }
+    }
+});
+
+// listen for avatar file change (outside click handler because it's input change)
+document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'avatarInput') {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+            const img = document.querySelector('#avatarPreview');
+            if (img) img.src = ev.target.result;
+        };
+        reader.readAsDataURL(f);
     }
 });
 

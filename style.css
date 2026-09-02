@@ -2118,3 +2118,55 @@ li img {
 .theHangNho p {
     margin: 6px 0;
 }
+
+/* Order cards inside modal */
+.dsDonHang {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.donCard {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.donCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.trangThaiDon {
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.trangThaiGiaoNhanh { background: linear-gradient(90deg,var(--teal),var(--pine)); color: #fff; }
+.trangThaiThuong { background: #f1f6f4; color: var(--pine); border: 1px solid var(--line); }
+
+.donCardBody { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-top:8px; }
+.donSanPhamItem { background: var(--mint); padding:6px 8px; border-radius:8px; margin-bottom:4px; display:inline-block; color:var(--pine); }
+.donTongTien { font-weight:700; color:var(--pine); }
+.donCardFooter { margin-top:10px; display:flex; gap:8px; }
+.donCardFooter button { padding:8px 10px; border-radius:8px; }
+
+/* Profile editor in modal */
+.khungCaNhan { display:flex; gap:18px; align-items:flex-start; }
+.khungAnhVaThongTin { width: 180px; }
+.khungAvatar { display:flex; flex-direction:column; gap:8px; align-items:center; }
+.khungAvatar img { width:120px; height:120px; object-fit:cover; border-radius:50%; border:3px solid var(--line); box-shadow: var(--shadow-sm); background:var(--mint); }
+.khungFormCaNhan { flex:1; display:flex; flex-direction:column; gap:8px; }
+.khungFormCaNhan input, .khungFormCaNhan textarea { padding:10px; border-radius:10px; border:1.5px solid var(--line); font-family:inherit; }
+.khungFormCaNhan label { font-weight:700; color:var(--pine); }
+
+@media (max-width:800px) {
+    .khungCaNhan { flex-direction:column; }
+    .khungAnhVaThongTin { width:100%; display:flex; justify-content:center; }
+}
